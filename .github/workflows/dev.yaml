@@ -30,9 +30,9 @@ jobs:
           mkdir chatup && cd chatup
           git init
           git config --local credential.helper store
-          echo https://${{ secrets.CHATUP_TOKEN }}:x-oauth-basic@github.com>> %USERPROFILE%\.git-credentials
           git config --local user.email "alizarinstone@gmail.com"
           git config --local user.name "Alizarinstone"
+          git config --local user.password "${{ secrets.CHATUP_TOKEN }}"
           git remote add origin https://github.com/AverHLV/chatup.git
           git checkout -b dev
           git pull origin dev
