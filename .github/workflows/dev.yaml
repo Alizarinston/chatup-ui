@@ -33,7 +33,7 @@ jobs:
           git config --local user.email "alizarinstone@gmail.com"
           git config --local user.name "Alizarinstone"
           git init
-          git remote add https://github.com/AverHLV/chatup.git origin
+          git remote add origin https://github.com/AverHLV/chatup.git
           git checkout -b dev
           git pull origin dev
           mv -f ..build/* .chatup/ui/
