@@ -36,6 +36,6 @@ jobs:
           git remote add origin https://github.com/AverHLV/chatup.git
           git checkout -b dev
           git pull origin dev
-          mv -f ..build/* .chatup/ui/
+          mv -f ../build/* chatup/ui/
           git commit -m "Changes from UI repo" -a
           git push origin dev
