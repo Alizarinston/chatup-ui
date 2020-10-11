@@ -2,17 +2,35 @@ import React from "react";
 import { connect } from "react-redux";
 import Hoc from "../hoc/hoc";
 import { Input, List, Image } from 'semantic-ui-react'
+import WebSocketInstance from "../websocket";
 
 class Chat extends React.Component {
   state = { message: "" };
 
   initialiseChat() {
-    // websocket connection init | fetch messages
+    this.waitForSocketConnection(() => {
+      // fetch messages
+    });
+    WebSocketInstance.connect('test');
   }
 
   constructor(props) {
     super(props);
     this.initialiseChat();
+  }
+
+  waitForSocketConnection(callback) {
+    const component = this;
+    setTimeout(function() {
+      if (WebSocketInstance.state() === 1) {
+        console.log("Connection is made");
+        callback();
+        return;
+      } else {
+        console.log("wait for connection...");
+        component.waitForSocketConnection(callback);
+      }
+    }, 100);
   }
 
   messageChangeHandler = event => {
@@ -21,11 +39,30 @@ class Chat extends React.Component {
 
   sendMessageHandler = e => {
     e.preventDefault();
+    const messageObject = {
+      content: this.state.message,
+      chatId: 'test'
+    };
+    WebSocketInstance.newChatMessage(messageObject);
     this.setState({ message: "" });
   };
 
   renderMessages = messages => {
-    // render
+    // const currentUser = this.props.username;
+    return messages.map((message, i, arr) => (
+      <List.Item key={i}>
+        <Image avatar src='https://static-cdn.jtvnw.net/jtv_user_pictures/panel-148316617-image-3036e147-20a6-490c-ae31-9cfa6cdd73ad' />
+        <List.Content>
+          <List.Header as='a'>TEST</List.Header>
+          <List.Description>
+            {message}
+            <br />
+          </List.Description>
+        </List.Content>
+      </List.Item>
+
+
+    ));
   };
 
   scrollToBottom = () => {
@@ -97,8 +134,10 @@ class Chat extends React.Component {
                 </List.Description>
               </List.Content>
             </List.Item>
-          </List>
 
+          {this.props.messages && this.renderMessages(this.props.messages)}
+
+          </List>
           <div
             style={{ float: "left", clear: "both" }}
             ref={el => {
@@ -130,7 +169,7 @@ class Chat extends React.Component {
 const mapStateToProps = state => {
   return {
     username: state.auth.username,
-    // messages: state.message.messages
+    messages: state.message.messages
   };
 };
 

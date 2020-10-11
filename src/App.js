@@ -5,6 +5,8 @@ import BaseRouter from "./routes";
 import * as actions from "./store/actions/auth";
 import "semantic-ui-css/semantic.min.css";
 import CustomLayout from "./containers/Layout";
+import * as messageActions from "./store/actions/message";
+import WebSocketInstance from "./websocket";
 
 class App extends Component {
 
@@ -12,6 +14,14 @@ class App extends Component {
     if (!this.props.isAuthenticated) {
       this.props.onTryAutoSignup();
     }
+  }
+
+  constructor(props) {
+    super(props);
+    WebSocketInstance.addCallbacks(
+      this.props.setMessages.bind(this),
+      this.props.addMessage.bind(this)
+    );
   }
 
   render() {
@@ -35,7 +45,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
-    setProfile: (username, watchtime, username_color) => dispatch(actions.authUpdate(username, watchtime, username_color))
+    setProfile: (username, watchtime, username_color) => dispatch(actions.authUpdate(username, watchtime, username_color)),
+    addMessage: message => dispatch(messageActions.addMessage(message)),
+    setMessages: messages => dispatch(messageActions.setMessages(messages))
   };
 };
 

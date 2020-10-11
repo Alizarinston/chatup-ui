@@ -21,7 +21,7 @@ class Profile extends React.Component {
         <br/><br/><br/>
         {this.props.username !== null ? (
           <Hoc>
-            <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/f978fcd7-c028-4d02-8b64-bf9f468ecad3-profile_image-300x300.png" alt="" />
+            <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/panel-148316617-image-3036e147-20a6-490c-ae31-9cfa6cdd73ad" alt="" />
             <p>User ID: {this.props.userID}</p>
             <p>Username: {this.props.username}</p>
             <p>Role: {roles[this.props.roleID]}</p>
