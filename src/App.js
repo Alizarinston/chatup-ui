@@ -19,8 +19,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     WebSocketInstance.addCallbacks(
-      this.props.setMessages.bind(this),
-      this.props.addMessage.bind(this)
+      this.props.addMessage.bind(this),
+      this.props.updateWatchersCount.bind(this)
     );
   }
 
@@ -47,7 +47,8 @@ const mapDispatchToProps = dispatch => {
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
     setProfile: (username, watchtime, username_color) => dispatch(actions.authUpdate(username, watchtime, username_color)),
     addMessage: message => dispatch(messageActions.addMessage(message)),
-    setMessages: messages => dispatch(messageActions.setMessages(messages))
+    setMessages: messages => dispatch(messageActions.setMessages(messages)),
+    updateWatchersCount: message => dispatch(messageActions.updateWatchersCount(message))
   };
 };
 
