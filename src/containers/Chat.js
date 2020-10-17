@@ -155,6 +155,7 @@ class Chat extends React.Component {
                 required
                 id="chat-message-input"
                 type="text"
+                autocomplete="off"
                 placeholder="Write your message..."
                 fluid={true}
               />

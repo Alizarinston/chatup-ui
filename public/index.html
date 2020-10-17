@@ -24,11 +24,67 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+    <link href="%PUBLIC_URL%/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>React App</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+
+    <div class="headerback">
+
+      <header class="headerWrraper">
+        <nav class="menuVez" style="padding:0; margin:0;">
+          <div class="spacebet">
+            <ul>
+              <li><a rel="nofollow" href="/">Главная</a></li>
+              <li><a rel="nofollow" href="serialyi">Сериалы</a></li>
+              <li><a rel="nofollow" href="filmyi">Фильмы</a></li>
+              <li class="last"><a rel="nofollow" href="igryi">Игры</a></li>
+            </ul>
+
+            <a href='https://www.twitch.tv/vezaks' style='color:#EF0A0A; font:16px Trebuchet MS;'  target='_blank'>
+              <div class='streamon' data-description='$title' ><div class='blink'></div>Стрим онлайн</div>
+            </a>
+          </div>
+        </nav>
+
+
+      </header>
+      <div id="root"></div>
+
+      <div class="contentAbout">
+
+        <a href=""><div class="buttonDonate">Донат</div></a>
+
+        <a href=""><div class="buttonDonate">Паблик </div></a>
+
+          <a href=""><div class="buttonDonate">Расписание</div></a>
+
+      </div>
+
+      <div class="footer" style="margin-top: 70px; margin-bottom:35px;">
+			<span style="float: left;">
+        	<a href="https://vk.com/vezaks_club" class="iconStyle" target="_blank">
+              <i class="fa fa-vk"></i></a>
+        	<a href="https://www.youtube.com/channel/UC11Ubf7ynsXZN73PZR22KIg" class="iconStyle" target="_blank">
+              <i class="fa fa-youtube-play"></i></a>
+        	<a href="https://www.twitch.tv/vezaks" target="_blank" class="iconStyle2">
+              <i class="fa fa-twitch"></i></a>
+       		</span>
+
+        <hr class="li-footer">
+
+
+        <span style="float: right;">
+        	<a href="https://vk.com/topic-91605072_37040046" class="bagfot" target="_blank">
+              <i class="fa fa-exclamation-triangle" style="font-size: 14px; padding-right: 5px;"></i>Баг-репорт</a>
+        	<a href="#" onclick="return up()" class="topfot">
+              <i class="fa fa-arrow-up" style="font-size: 14px; padding-right: 5px;"></i>Наверх</a>
+        	</span>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,5 +95,9 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+
+
+
   </body>
 </html>

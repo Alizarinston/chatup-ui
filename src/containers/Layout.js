@@ -21,61 +21,30 @@ class CustomLayout extends React.Component {
     const { authenticated, username, roleID } = this.props;
 
     return (
-      <div>
-        <Menu fixed="top" inverted size={"large"}>
-          <Container>
-            {authenticated ? (
-              <React.Fragment>
-                <Link to="/">
-                  <Menu.Item header>Home</Menu.Item>
-                </Link>
-                <Link to="/profile/">
-                  <Menu.Item header>Profile</Menu.Item>
-                </Link>
-              </React.Fragment>
-            ) : (<Link to="/">
-              <Menu.Item header>Home</Menu.Item>
-            </Link>)}
-            {authenticated ? (
-              <React.Fragment>
-
-                <Link to="/swagger/">
-                  <Menu.Item header>API</Menu.Item>
-                </Link>
-
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-
-                <Link to="/swagger/">
-                  <Menu.Item header>API</Menu.Item>
-                </Link>
-
-              </React.Fragment>
-            )}
-          </Container>
+      <div className="menuTop">
+        <Menu>
 
           {authenticated ? (
             <React.Fragment>
               <Menu.Menu position={'right'}>
                 <Menu.Item>
                   {username}
-                </Menu.Item>
+                </Menu.Item>°
                 <Menu.Item>
                   {roles[roleID]}
                 </Menu.Item>
                 <Menu.Item header onClick={() => this.props.logout()}>
-                  Logout
+                  Выход
                 </Menu.Item>
               </Menu.Menu>
             </React.Fragment>
           ) : (
             <React.Fragment>
               <Link to="/login">
-                <Menu.Item header>Login</Menu.Item>
+                <Menu.Item header>Вход</Menu.Item>
               </Link>
               <Link to="/signup">
-                <Menu.Item header>Signup</Menu.Item>
+                <Menu.Item header>Регистрация</Menu.Item>
               </Link>
             </React.Fragment>
           )}
@@ -84,12 +53,7 @@ class CustomLayout extends React.Component {
 
         {this.props.children}
 
-        <Segment
-          inverted
-          vertical
-          style={{ margin: "0em 0em 0em", padding: "2.8em 0em" }}
-        >
-        </Segment>
+
       </div>
     );
   }
