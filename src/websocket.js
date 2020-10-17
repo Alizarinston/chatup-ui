@@ -25,40 +25,44 @@ class WebSocketService {
       this.socketNewMessage(e.data);
     };
     this.socketRef.onerror = e => {
-      console.log(e.message);
+      console.log(e.content);
     };
-    this.socketRef.onclose = () => {
-      console.log("WebSocket closed let's reopen");
-      this.connect();
+    this.socketRef.onclose = (event) => {
+      if (!event.wasClean) {
+        console.log("WebSocket closed let's reopen");
+        this.connect(chatUrl);
+      }
     };
   }
 
   disconnect() {
-    this.socketRef.close();
+    this.socketRef.close(1000, "Closing Connection Normally");
   }
 
   socketNewMessage(data) {
     const parsedData = JSON.parse(data);
-    this.callbacks["new_message"](parsedData.message);
-  }
-
-  fetchMessages(username, chatId) {
-    this.sendMessage({
-      command: "fetch_messages",
-      username: username,
-      chatId: chatId
-    });
+    const type = parsedData.type;
+    if (Object.keys(this.callbacks).length === 0) {
+      return;
+    }
+    if (type === "send_message") {
+      this.callbacks["new_message"](parsedData.content);
+    }
+    if (type === "update_watchers_count") {
+      this.callbacks["update_watchers_count"](parsedData.content);
+    }
   }
 
   newChatMessage(message) {
     this.sendMessage({
-      message: message.content
+      type: "create_message",
+      content: {text: message.content}
     });
   }
 
-  addCallbacks(messagesCallback, newMessageCallback) {
-    this.callbacks["messages"] = messagesCallback;
+  addCallbacks(newMessageCallback, updateWatchersCountCallback) {
     this.callbacks["new_message"] = newMessageCallback;
+    this.callbacks["update_watchers_count"] = updateWatchersCountCallback;
   }
 
   sendMessage(data) {

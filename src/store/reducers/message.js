@@ -3,10 +3,7 @@ import { updateObject } from "../utility";
 
 const initialState = {
   messages: [],
-  chats: [],
-  username: null,
-  watchtime: null,
-  wallet: []
+  watchers: null
 };
 
 const addMessage = (state, action) => {
@@ -15,17 +12,15 @@ const addMessage = (state, action) => {
   });
 };
 
-const setMessages = (state, action) => {
+const updateWatchersCount = (state, action) => {
   return updateObject(state, {
-    username: action.username,
-    watchtime: action.watchtime,
-    wallet: action.wallet
+    watchers: action.message
   });
 };
 
-const setChats = (state, action) => {
+const setMessages = (state, action) => {
   return updateObject(state, {
-    chats: action.chats
+    messages: action.messages.reverse()
   });
 };
 
@@ -33,10 +28,10 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_MESSAGE:
       return addMessage(state, action);
+    case actionTypes.UPDATE_WATCHERS_COUNT:
+      return updateWatchersCount(state, action);
     case actionTypes.SET_MESSAGES:
       return setMessages(state, action);
-    case actionTypes.GET_CHATS_SUCCESS:
-      return setChats(state, action);
     default:
       return state;
   }
