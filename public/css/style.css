@@ -1,0 +1,249 @@
+.ui.menu {
+    width: 980px !important;
+    margin: 0 auto !important;
+    margin-top: -370px !important;
+}
+
+.chatBox {
+    margin: 20px 60px 0 60px;
+    display: flex;
+    background: white;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+
+.playerBlock {
+    padding: 10px 20px 10px 20px;
+    width: 75%;
+}
+
+.chatBlock {
+    padding: 10px;
+    border-left: 1px solid rgba(34,36,38,.15);
+    width: 25%;
+}
+
+/* background vezaks.com */
+
+body {
+    background-color: #f0f0f0 !important;
+}
+
+.footerIconLeft {
+    float: left;
+}
+
+.footerIconRight {
+    float: right;
+}
+
+.buttonDonate{
+    background: #767676;
+    padding: 15px 130px 15px 130px;
+    color: white;
+    border-radius: 3px;
+}
+
+ul {
+    margin:0 auto;
+    padding:0 0 0 0;
+}
+
+.description {
+    word-wrap: break-word;
+    width: 260px;
+}
+
+.menuTop {
+    margin: -390px 100px 0 100px;
+}
+
+.contentAbout {
+    width: 980px;
+    margin: 30px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer {
+    width: 980px;
+    margin: 0 auto;
+    min-height: 40px;
+    margin-top: 75px;
+    margin-bottom:25px;
+}
+
+a .fa-vk, .fa-youtube-play, .fa-twitch {
+    padding-right: 25px;
+    color: #a3a3a3;
+}
+
+a .fa-vk:hover, .fa-youtube-play:hover, .fa-twitch:hover {
+    color: #767676;
+}
+
+
+a .fa-exclamation-triangle, .fa-arrow-up {
+    font-size: 14px !important;
+    padding-right: 5px;
+}
+
+a .fa {
+    font-size: 18px;
+}
+
+.li-footer {
+    float: left;
+    margin-top: 12px;
+    height: 2px;
+    width: 615px;
+    background: #a3a3a3;
+    border: none;
+}
+
+.iconStyle {
+    padding-right: 25px;
+    color: #a3a3a3;
+}
+
+.iconStyle:hover {
+    color: #767676;
+}
+
+.iconStyle2 {
+    padding-right: 16px;
+    color: #a3a3a3;
+}
+
+.iconStyle2:hover {
+    color: #767676;
+}
+
+.bagfot {
+    margin-right: 40px;
+    font-size: 16px;
+    color: #a3a3a3;
+}
+
+.bagfot:hover {
+    color: #767676;
+}
+
+.topfot {
+    font-size: 16px;
+    color: #a3a3a3;
+}
+
+.topfot:hover {
+    color: #767676;
+}
+
+.headerback {
+    width: 100%;
+    height: 484px;
+    background: linear-gradient(rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.84)), url(http://vezaks.com/assets/img/sh03-min.jpg);
+    background-size: 116%;
+    background-position-x: -4rem;
+}
+
+.headerWrraper {
+    margin: 0 auto;
+    text-align: center;
+    width: 980px;
+    height: 484px;
+    color: #ffffff;
+}
+
+.menuVez {
+    margin:0 auto;
+    padding:0 0 0 0;
+    height:80px;
+    width:978px;
+    display:block;
+    background: rgba(247,247,247,0.37);
+    background: -moz-linear-gradient(top, rgba(247,247,247,0.37) 0%, rgba(247,247,247,0.08) 61%, rgba(247,247,247,0) 77%);
+    background: -webkit-linear-gradient(top, rgba(247,247,247,0.37) 0%, rgba(247,247,247,0.08) 61%, rgba(247,247,247,0) 77%);
+    background: -o-linear-gradient(top, rgba(247,247,247,0.37) 0%, rgba(247,247,247,0.08) 61%, rgba(247,247,247,0) 77%);
+    background: -ms-linear-gradient(top, rgba(247,247,247,0.37) 0%, rgba(247,247,247,0.08) 61%, rgba(247,247,247,0) 77%);
+    background: linear-gradient(to bottom, rgba(247,247,247,0.37) 0%, rgba(247,247,247,0.08) 61%, rgba(247,247,247,0) 77%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#f7f7f7', GradientType=0 );
+}
+
+.menuVez li {
+    margin:0;
+    list-style:none;
+    display:inline;
+}
+
+.menuVez li a {
+    float:left;
+    padding:28px 69px 0 69px;
+    height:80px;
+    color:rgb(255,255,255);
+    text-decoration:none;
+    font:18px Trebuchet MS;
+    cursor:pointer;
+}
+
+.menuVez li a:hover {
+    background-color: rgba(255, 255, 255, 0.13);
+}
+
+.spacebet {
+    display: flex;
+    justify-content: space-between;
+}
+
+.active {
+    float:left;
+    display:block;
+    font:18px Trebuchet MS;
+    height:80px;
+    background-color: rgba(255, 255, 255, 0.13);
+}
+
+.blink {
+    float:left;
+    border-radius:50%;
+    margin:4px -25px 0 13px;
+    width:9px;
+    height:9px;
+    background:#EF0A0A;
+    animation-name: blinker;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+    animation-duration: 4s;
+    -webkit-animation-name: blinker;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: cubic-bezier(1.0,0,0,1.0);
+    -webkit-animation-duration: 1s;
+}
+
+@keyframes blinker {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+}
+
+@-webkit-keyframes blinker {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+}
+
+.streamon {
+
+    z-index:6;
+    color:#EF0A0A;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.33) 0%, rgba(255, 0, 0, 0.05) 100%);
+    width:175px;
+    height:80px;
+    padding:28px 0 9px 15px;
+    transition:0.3s;
+
+}
+
+.streamon:hover {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.56) 0%, rgba(255, 0, 0, 0.12) 100%);
+
+}

@@ -3,10 +3,6 @@ import {connect} from "react-redux";
 import Chat from "./Chat";
 import ReactHlsPlayer from 'react-hls-player'
 import {
-  Grid,
-  GridColumn,
-  GridRow,
-  Segment,
   Modal,
   Container,
   Menu
@@ -41,18 +37,18 @@ class HomepageLayout extends React.Component {
           active: res.data.result[0].is_active,
         })
       }).catch(() => {
-        axios.get(`${HOST_URL}/api/broadcasts/`, { headers: {
-            "Content-Type": "application/json"
-          }, params: {limit: 1} })
-          .then(res => {
-            this.setState({
-              loading: false,
-              chatID: res.data.result[0].id,
-              title: res.data.result[0].title,
-              active: res.data.result[0].is_active,
-            })
-          }).catch(err => console.log("error " + err))
-      });
+      axios.get(`${HOST_URL}/api/broadcasts/`, { headers: {
+          "Content-Type": "application/json"
+        }, params: {limit: 1} })
+        .then(res => {
+          this.setState({
+            loading: false,
+            chatID: res.data.result[0].id,
+            title: res.data.result[0].title,
+            active: res.data.result[0].is_active,
+          })
+        }).catch(err => console.log("error " + err))
+    });
   }
 
   render() {
@@ -60,8 +56,30 @@ class HomepageLayout extends React.Component {
 
     return (
       <div>
+      
+        <div className="headerback">
+          <header className="headerWrraper">
+            <nav className="menuVez">
+              <div className="spacebet">
+                <ul>
+                  <li><a href="https://vezaks.com/">Главная</a></li>
+                  <li><a href="https://vezaks.com/serialyi">Сериалы</a></li>
+                  <li><a href="https://vezaks.com/filmyi">Фильмы</a></li>
+                  <li className="last"><a rel="nofollow" href="https://vezaks.com/igryi">Игры</a></li>
+                </ul>
 
-        <Menu fixed="top" inverted size={"large"}>
+                <a href="https://www.twitch.tv/vezaks" target="_blank">
+                  <div className="streamon" data-description="$title">
+                    <div className={"blink"}/>
+                    Стрим онлайн
+                  </div>
+                </a>
+              </div>
+            </nav>
+          </header>
+        </div>
+      
+        <Menu>
           <Container>
             {authenticated ? (
               <React.Fragment>
@@ -122,39 +140,41 @@ class HomepageLayout extends React.Component {
               />
             </React.Fragment>
           )}
-
         </Menu>
 
-        <br/><br/>
+        <div className="chatBox">
+          <div className="playerBlock">
+            <ReactHlsPlayer poster={"https://sun9-35.userapi.com/c849532/v849532312/15082b/efNn97HREgo.jpg"}
+                            url='//d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'
+                            autoplay={false}
+                            controls={true}
+            />
+            <h1>{this.state.title}</h1>
+          </div>
+          <div className="chatBlock">
+            {(this.state.loading || !authenticated) ? 'Log-in to see chat' : <Chat chatID={this.state.chatID} active={this.state.active}/>}
+          </div>
+        </div>
 
-        <Grid divided celled={true}>
-          <GridRow>
-            <GridColumn width={12}>
-              <Segment compact={false}>
-                <ReactHlsPlayer poster={"https://sun9-35.userapi.com/c849532/v849532312/15082b/efNn97HREgo.jpg"}
-                                url='//d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'
-                                autoplay={false}
-                                controls={true}
-                                width={1370}
-                                height={740}
-                />
-                <h1>{this.state.title}</h1>
-              </Segment>
-            </GridColumn>
-            <GridColumn width={4}>
-              <Segment>
-                {(this.state.loading || !authenticated) ? 'Log-in to see chat' : <Chat chatID={this.state.chatID} active={this.state.active}/>}
-              </Segment>
-            </GridColumn>
-          </GridRow>
-        </Grid>
+        <div className="contentAbout">
+          <a href=""><div className="buttonDonate">Донат</div></a>
+          <a href=""><div className="buttonDonate">Паблик </div></a>
+          <a href=""><div className="buttonDonate">Расписание</div></a>
+        </div>
 
-        <Segment
-          inverted
-          vertical
-          style={{ margin: "0em 0em 0em", padding: "2.8em 0em" }}
-        >
-        </Segment>
+        <div className="footer">
+			    <span className="footerIconLeft">
+            <a href="https://vk.com/vezaks_club" className="vkfot" target="_blank"><i className={"fa fa-vk"}/></a>
+            <a href="https://www.youtube.com/channel/UC11Ubf7ynsXZN73PZR22KIg" className={"youfot"} target="_blank"><i className={"fa fa-youtube-play"}/></a>
+            <a href="https://www.twitch.tv/vezaks" target="_blank" className={"twifot"}><i className={"fa fa-twitch"}/></a>
+       		</span>
+          <hr className={"li-footer"}/>
+          <span className={"footerIconRight"}>
+            <a href="https://vk.com/topic-91605072_37040046" className="bagfot" target="_blank"><i className={"fa fa-exclamation-triangle"}/>Баг-репорт</a>
+            <a href="#" onClick="return up()" className={"topfot"}><i className={"fa fa-arrow-up"}/>Наверх</a>
+        	</span>
+        </div>
+
       </div>
     );
   }
