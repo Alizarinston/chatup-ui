@@ -1,6 +1,11 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
 import { HOST_URL } from '../../settings';
+import WebSocketInstance from "../../websocket";
+
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.withCredentials = true
 
 
 export const authStart = () => {
@@ -38,12 +43,13 @@ export const authFail = error => {
 };
 
 export const logout = () => {
-  axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-  axios.defaults.xsrfCookieName = "csrftoken";
-  axios.get(`${HOST_URL}/api/auth/logout/`, {withCredentials:true, headers: {
+  axios.get(`${HOST_URL}/api/auth/logout/`, {headers: {
       "Content-Type": "application/json"
     }})
     .then(() => {
+      if (WebSocketInstance.socketRef) {
+        WebSocketInstance.disconnect();
+      }
       localStorage.clear();
     });
 
@@ -55,16 +61,14 @@ export const logout = () => {
 export const authLogin = (username, password) => {
   return dispatch => {
     dispatch(authStart());
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-    axios.defaults.xsrfCookieName = "csrftoken";
     axios.post(`${HOST_URL}/api/auth/login/`, {
       username: username,
       password: password
-    }, {credentials: "include", withCredentials: true})
+    }, {credentials: "include"})
       .then(() => {
         const token = "true";
 
-        axios.get(`${HOST_URL}/api/general/user/`, {withCredentials:true, headers: {
+        axios.get(`${HOST_URL}/api/general/user/`, {headers: {
             "Content-Type": "application/json"
           }})
           .then(res => {
@@ -94,18 +98,16 @@ export const authLogin = (username, password) => {
 export const authSignup = (username, email, password1, password2) => {
   return dispatch => {
     dispatch(authStart());
-    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-    axios.defaults.xsrfCookieName = "csrftoken";
     axios.post(`${HOST_URL}/api/auth/signup/`, {
       username: username,
       email: email,
       password1: password1,
       password2: password2
-    }, {credentials: "include", withCredentials: true})
+    }, )
       .then(() => {
         const token = "true";
 
-        axios.get(`${HOST_URL}/api/general/user/`, {withCredentials:true, headers: {
+        axios.get(`${HOST_URL}/api/general/user/`, {headers: {
             "Content-Type": "application/json"
           }})
           .then(res => {
