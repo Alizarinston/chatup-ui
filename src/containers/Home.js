@@ -56,6 +56,7 @@ class HomepageLayout extends React.Component {
 
     return (
       <div>
+      
         <div className="headerback">
           <header className="headerWrraper">
             <nav className="menuVez">
@@ -77,6 +78,7 @@ class HomepageLayout extends React.Component {
             </nav>
           </header>
         </div>
+      
         <Menu>
           <Container>
             {authenticated ? (
@@ -138,7 +140,6 @@ class HomepageLayout extends React.Component {
               />
             </React.Fragment>
           )}
-
         </Menu>
 
         <div className="chatBox">
