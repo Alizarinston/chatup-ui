@@ -1,17 +1,24 @@
 import React from 'react'
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
 import Chat from "./Chat";
 import ReactHlsPlayer from 'react-hls-player'
 import {
   Grid,
   GridColumn,
   GridRow,
-  Segment
+  Segment,
+  Modal,
+  Container,
+  Menu
 } from 'semantic-ui-react'
 import axios from "axios";
 import {HOST_URL} from "../settings";
+import { Link } from "react-router-dom";
+import { logout } from "../store/actions/auth";
 
+import Login from "./Login";
+import Signup from "./Signup";
+import Profile from "./Profile";
 
 class HomepageLayout extends React.Component {
   state = {
@@ -36,14 +43,102 @@ class HomepageLayout extends React.Component {
     }
   }
 
-  render() {
-    if (this.props.token === undefined || this.props.token === null) {
-      return <Redirect to="/login"/>;
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.token !== prevProps.token) {
+      if (this.props.token) {
+        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+        axios.defaults.xsrfCookieName = "csrftoken";
+        axios.get(`${HOST_URL}/api/broadcasts/`, {withCredentials:true, headers: {
+            "Content-Type": "application/json"
+          }, params: {limit: 1} })
+          .then(res => {
+            this.setState({
+              loading: false,
+              chatID: res.data.result[0].id,
+              title: res.data.result[0].title,
+              active: res.data.result[0].is_active,
+            })
+          }).catch(err => console.log("error " + err));
+      } else {
+        this.setState({
+          loading: true
+        })
+      }
     }
+  }
+
+  render() {
+    const { authenticated, username } = this.props;
 
     return (
       <div>
+
+        <Menu fixed="top" inverted size={"large"}>
+          <Container>
+            {authenticated ? (
+              <React.Fragment>
+                <Link to="/">
+                  <Menu.Item header>Home</Menu.Item>
+                </Link>
+                <Modal
+                  trigger={<Menu.Item header>Profile</Menu.Item>}
+                  content={<Profile/>}
+                />
+              </React.Fragment>
+            ) : (<Link to="/">
+              <Menu.Item header>Home</Menu.Item>
+            </Link>)}
+            {authenticated ? (
+              <React.Fragment>
+
+                <Link to="/swagger/">
+                  <Menu.Item header>API</Menu.Item>
+                </Link>
+
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+
+                <Link to="/swagger/">
+                  <Menu.Item header>API</Menu.Item>
+                </Link>
+
+              </React.Fragment>
+            )}
+          </Container>
+
+          {authenticated ? (
+            <React.Fragment>
+              <Menu.Menu position={'right'}>
+                <Menu.Item>
+                  {username}
+                </Menu.Item>
+                <Menu.Item header onClick={() => this.props.logout()}>
+                  Logout
+                </Menu.Item>
+              </Menu.Menu>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Modal
+                trigger={<Menu.Item header>Login</Menu.Item>}
+                content={<Login/>}
+                dimmer={"blurring"}
+                basic={true}
+              />
+              <Modal
+                trigger={<Menu.Item header>Signup</Menu.Item>}
+                content={<Signup/>}
+                dimmer={"blurring"}
+                basic={true}
+              />
+            </React.Fragment>
+          )}
+
+        </Menu>
+
         <br/><br/>
+
         <Grid divided celled={true}>
           <GridRow>
             <GridColumn width={12}>
@@ -60,11 +155,18 @@ class HomepageLayout extends React.Component {
             </GridColumn>
             <GridColumn width={4}>
               <Segment>
-                {this.state.loading ? 'loading...' : <Chat chatID={this.state.chatID} active={this.state.active}/>}
+                {this.state.loading ? 'Log-in to see chat' : <Chat chatID={this.state.chatID} active={this.state.active}/>}
               </Segment>
             </GridColumn>
           </GridRow>
         </Grid>
+
+        <Segment
+          inverted
+          vertical
+          style={{ margin: "0em 0em 0em", padding: "2.8em 0em" }}
+        >
+        </Segment>
       </div>
     );
   }
@@ -72,8 +174,20 @@ class HomepageLayout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.auth.token
+    token: state.auth.token,
+    authenticated: state.auth.token !== null,
+    username: state.auth.username,
+    roleID: state.auth.roleID
   };
 };
 
-export default connect(mapStateToProps)(HomepageLayout);
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomepageLayout);

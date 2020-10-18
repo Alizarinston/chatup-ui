@@ -6,7 +6,6 @@ import { createStore, compose, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import messageReducer from "./store/reducers/message";
-
 import authReducer from "./store/reducers/auth";
 
 const composeEnhances = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

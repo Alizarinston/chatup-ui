@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import BaseRouter from "./routes";
 import * as actions from "./store/actions/auth";
 import "semantic-ui-css/semantic.min.css";
-import CustomLayout from "./containers/Layout";
 import * as messageActions from "./store/actions/message";
 import WebSocketInstance from "./websocket";
 
@@ -27,9 +26,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <CustomLayout {...this.props}>
-          <BaseRouter/>
-        </CustomLayout>
+        <BaseRouter/>
       </Router>
     );
   }
