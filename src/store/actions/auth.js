@@ -143,6 +143,29 @@ export const authCheckState = () => {
     const username_color = localStorage.getItem('username_color');
     const roleID = localStorage.getItem('roleID');
 
+    axios.get(`${HOST_URL}/api/general/user/`, {headers: {
+        "Content-Type": "application/json"
+      }})
+      .then(res => {
+        const token = 'true';
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', res.data.username);
+        localStorage.setItem('watchtime', res.data.watchtime);
+        localStorage.setItem('userID', res.data.id);
+        localStorage.setItem('username_color', res.data.username_color);
+        localStorage.setItem('roleID', res.data.role);
+
+
+        const username = res.data.username;
+        const watchtime = res.data.watchtime;
+        const userID = res.data.id;
+        const username_color = res.data.username_color;
+        const roleID = res.data.role;
+
+        dispatch(authSuccess(token, username, watchtime, userID, username_color, roleID));
+      }).catch(() => {});
+
     if (token === undefined) {
       dispatch(logout());
     } else {
