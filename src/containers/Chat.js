@@ -146,7 +146,7 @@ class Chat extends React.Component {
 
         <div className="message-input">
           {this.props.active ?
-            <form onSubmit={this.sendMessageHandler}>
+            <form autoComplete="off" onSubmit={this.sendMessageHandler}>
               <div className="wrap">
                 <Input
                   onChange={this.messageChangeHandler}
