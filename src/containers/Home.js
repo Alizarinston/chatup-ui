@@ -68,6 +68,7 @@ class HomepageLayout extends React.Component {
                   <li className="last"><a rel="nofollow" href="https://vezaks.com/igryi">Игры</a></li>
                 </ul>
 
+                {/* eslint-disable-next-line react/jsx-no-target-blank */}
                 <a href="https://www.twitch.tv/vezaks" target="_blank">
                   <div className="streamon" data-description="$title">
                     <div className={"blink"}/>
@@ -157,21 +158,27 @@ class HomepageLayout extends React.Component {
         </div>
 
         <div className="contentAbout">
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href=""><div className="buttonDonate">Донат</div></a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href=""><div className="buttonDonate">Паблик </div></a>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href=""><div className="buttonDonate">Расписание</div></a>
         </div>
 
         <div className="footer">
 			    <span className="footerIconLeft">
+            {/* eslint-disable-next-line react/jsx-no-target-blank */}
             <a href="https://vk.com/vezaks_club" className="vkfot" target="_blank"><i className={"fa fa-vk"}/></a>
+            {/* eslint-disable-next-line react/jsx-no-target-blank */}
             <a href="https://www.youtube.com/channel/UC11Ubf7ynsXZN73PZR22KIg" className={"youfot"} target="_blank"><i className={"fa fa-youtube-play"}/></a>
+            {/* eslint-disable-next-line react/jsx-no-target-blank */}
             <a href="https://www.twitch.tv/vezaks" target="_blank" className={"twifot"}><i className={"fa fa-twitch"}/></a>
        		</span>
           <hr className={"li-footer"}/>
           <span className={"footerIconRight"}>
+            {/* eslint-disable-next-line react/jsx-no-target-blank */}
             <a href="https://vk.com/topic-91605072_37040046" className="bagfot" target="_blank"><i className={"fa fa-exclamation-triangle"}/>Баг-репорт</a>
-            <a href="#" onClick="return up()" className={"topfot"}><i className={"fa fa-arrow-up"}/>Наверх</a>
         	</span>
         </div>
 
