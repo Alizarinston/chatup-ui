@@ -72,7 +72,9 @@ class Chat extends React.Component {
   }
 
   componentWillUnmount() {
-    WebSocketInstance.disconnect();
+    if (WebSocketInstance.socketRef) {
+      WebSocketInstance.disconnect();
+    }
   }
 
   render() {

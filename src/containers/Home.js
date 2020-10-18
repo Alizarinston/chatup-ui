@@ -26,29 +26,22 @@ class HomepageLayout extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.token) {
-      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-      axios.defaults.xsrfCookieName = "csrftoken";
-      axios.get(`${HOST_URL}/api/broadcasts/`, {withCredentials:true, headers: {
-          "Content-Type": "application/json"
-        }, params: {limit: 1} })
-        .then(res => {
-          this.setState({
-            loading: false,
-            chatID: res.data.result[0].id,
-            title: res.data.result[0].title,
-            active: res.data.result[0].is_active,
-          })
-        }).catch(err => console.log("error " + err));
-    }
-  }
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.defaults.withCredentials = true
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.props.token !== prevProps.token) {
-      if (this.props.token) {
-        axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-        axios.defaults.xsrfCookieName = "csrftoken";
-        axios.get(`${HOST_URL}/api/broadcasts/`, {withCredentials:true, headers: {
+    axios.get(`${HOST_URL}/api/broadcasts/`, { headers: {
+        "Content-Type": "application/json"
+      }, params: {limit: 1, is_active: true} })
+      .then(res => {
+        this.setState({
+          loading: false,
+          chatID: res.data.result[0].id,
+          title: res.data.result[0].title,
+          active: res.data.result[0].is_active,
+        })
+      }).catch(() => {
+        axios.get(`${HOST_URL}/api/broadcasts/`, { headers: {
             "Content-Type": "application/json"
           }, params: {limit: 1} })
           .then(res => {
@@ -58,13 +51,8 @@ class HomepageLayout extends React.Component {
               title: res.data.result[0].title,
               active: res.data.result[0].is_active,
             })
-          }).catch(err => console.log("error " + err));
-      } else {
-        this.setState({
-          loading: true
-        })
-      }
-    }
+          }).catch(err => console.log("error " + err))
+      });
   }
 
   render() {
@@ -150,12 +138,12 @@ class HomepageLayout extends React.Component {
                                 width={1370}
                                 height={740}
                 />
-                <h1>{this.state.loading ? 'loading...' : this.state.title}</h1>
+                <h1>{this.state.title}</h1>
               </Segment>
             </GridColumn>
             <GridColumn width={4}>
               <Segment>
-                {this.state.loading ? 'Log-in to see chat' : <Chat chatID={this.state.chatID} active={this.state.active}/>}
+                {(this.state.loading || !authenticated) ? 'Log-in to see chat' : <Chat chatID={this.state.chatID} active={this.state.active}/>}
               </Segment>
             </GridColumn>
           </GridRow>
