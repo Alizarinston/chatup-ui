@@ -33,7 +33,9 @@ class Chat extends React.Component {
       .then(res => {
         this.setState({
           loading: false,
-          users: res.data.result
+          streamer: res.data.result['Стример'] ? res.data.result['Стример'] : [],
+          admins: res.data.result['Администратор'] ? res.data.result['Администратор'] : [],
+          users: res.data.result['Пользователь'] ? res.data.result['Пользователь'] : []
         })
       }).catch(err => console.log("error " + err));
   }
@@ -190,12 +192,19 @@ class Chat extends React.Component {
           labeled
           onClick={this.handleClick}
         >
-          <Dropdown.Menu>
+          <Dropdown.Menu scrolling>
+            <Dropdown.Header content='Стример' />
+            {this.state.loading ? "loading" : this.state.streamer.map((user) => (
+              <Dropdown.Item key={user.id} {...user} content={user.username} />
+            ))}
+            <Dropdown.Header content='Администраторы' />
+            {this.state.loading ? "loading" : this.state.admins.map((user) => (
+              <Dropdown.Item key={user.id} {...user} content={user.username} />
+            ))}
             <Dropdown.Header content='Пользователи чата' />
-            {this.state.loading ? "loading" :
-              this.state.users.map((user) => (
-                <Dropdown.Item key={user.id} {...user} />
-              ))}
+            {this.state.loading ? "loading" : this.state.users.map((user) => (
+              <Dropdown.Item key={user.id} {...user} content={user.username} />
+            ))}
           </Dropdown.Menu>
         </Dropdown> {this.props.watchers}
 

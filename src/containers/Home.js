@@ -68,8 +68,7 @@ class HomepageLayout extends React.Component {
                   <li className="last"><a rel="nofollow" href="https://vezaks.com/igryi">Игры</a></li>
                 </ul>
 
-                {/* eslint-disable-next-line react/jsx-no-target-blank */}
-                <a href="https://www.twitch.tv/vezaks" target="_blank">
+                <a href="https://www.twitch.tv/vezaks" target="_blank" rel='noreferrer noopener'>
                   <div className="streamon" data-description="$title">
                     <div className={"blink"}/>
                     Стрим онлайн
