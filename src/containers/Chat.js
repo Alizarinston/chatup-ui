@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import Hoc from "../hoc/hoc";
-import { Input, List, Image, Icon, Label } from 'semantic-ui-react'
+import { Input, List, Image, Dropdown } from 'semantic-ui-react'
 import WebSocketInstance from "../websocket";
 import { fetchMessages } from "../store/actions/message";
+import axios from "axios";
+import {HOST_URL} from "../settings";
 
 /**
  * @return {string}
@@ -15,7 +17,26 @@ function NumScroll(num) {
 }
 
 class Chat extends React.Component {
-  state = { message: "" };
+  state = {
+    message: "",
+    loading: true
+  };
+
+  handleClick = () => {
+    console.log('The link was clicked.');
+
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.get(`${HOST_URL}/api/broadcasts/${this.props.chatID}/watchers/`, {headers: {
+        "Content-Type": "application/json"
+      }})
+      .then(res => {
+        this.setState({
+          loading: false,
+          users: res.data.result
+        })
+      }).catch(err => console.log("error " + err));
+  }
 
   initialiseChat() {
     this.props.fetchMessages(this.props.chatID)
@@ -164,9 +185,19 @@ class Chat extends React.Component {
           }
         </div>
 
-        <Label basic={true}>
-          <Icon name='users' /> {this.props.watchers}
-        </Label>
+        <Dropdown
+          icon='users'
+          labeled
+          onClick={this.handleClick}
+        >
+          <Dropdown.Menu>
+            <Dropdown.Header content='Пользователи чата' />
+            {this.state.loading ? "loading" :
+              this.state.users.map((user) => (
+                <Dropdown.Item key={user.id} {...user} />
+              ))}
+          </Dropdown.Menu>
+        </Dropdown> {this.props.watchers}
 
       </Hoc>
     );

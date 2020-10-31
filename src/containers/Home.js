@@ -168,17 +168,13 @@ class HomepageLayout extends React.Component {
 
         <div className="footer">
 			    <span className="footerIconLeft">
-            {/* eslint-disable-next-line react/jsx-no-target-blank */}
-            <a href="https://vk.com/vezaks_club" className="vkfot" target="_blank"><i className={"fa fa-vk"}/></a>
-            {/* eslint-disable-next-line react/jsx-no-target-blank */}
-            <a href="https://www.youtube.com/channel/UC11Ubf7ynsXZN73PZR22KIg" className={"youfot"} target="_blank"><i className={"fa fa-youtube-play"}/></a>
-            {/* eslint-disable-next-line react/jsx-no-target-blank */}
-            <a href="https://www.twitch.tv/vezaks" target="_blank" className={"twifot"}><i className={"fa fa-twitch"}/></a>
+            <a href="https://vk.com/vezaks_club" className="vkfot" target="_blank" rel='noreferrer noopener'><i className={"fa fa-vk"}/></a>
+            <a href="https://www.youtube.com/channel/UC11Ubf7ynsXZN73PZR22KIg" className={"youfot"} target="_blank" rel='noreferrer noopener'><i className={"fa fa-youtube-play"}/></a>
+            <a href="https://www.twitch.tv/vezaks" target="_blank" rel='noreferrer noopener' className={"twifot"}><i className={"fa fa-twitch"}/></a>
        		</span>
           <hr className={"li-footer"}/>
           <span className={"footerIconRight"}>
-            {/* eslint-disable-next-line react/jsx-no-target-blank */}
-            <a href="https://vk.com/topic-91605072_37040046" className="bagfot" target="_blank"><i className={"fa fa-exclamation-triangle"}/>Баг-репорт</a>
+            <a href="https://vk.com/topic-91605072_37040046" className="bagfot" target="_blank" rel='noreferrer noopener'><i className={"fa fa-exclamation-triangle"}/>Баг-репорт</a>
         	</span>
         </div>
 
