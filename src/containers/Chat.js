@@ -4,6 +4,8 @@ import Hoc from "../hoc/hoc";
 import { Input, List, Image, Icon, Label, Dropdown } from 'semantic-ui-react'
 import WebSocketInstance from "../websocket";
 import { fetchMessages } from "../store/actions/message";
+import axios from "axios";
+import {HOST_URL} from "../settings";
 
 /**
  * @return {string}
@@ -15,7 +17,28 @@ function NumScroll(num) {
 }
 
 class Chat extends React.Component {
-  state = { message: "" };
+  state = {
+    message: "",
+    loading: true
+  };
+
+  handleClick = () => {
+    console.log('The link was clicked.');
+
+    axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+    axios.defaults.xsrfCookieName = "csrftoken";
+    axios.get(`${HOST_URL}/api/broadcasts/${this.props.chatID}/watchers/`, {headers: {
+        "Content-Type": "application/json"
+      }})
+      .then(res => {
+        this.setState({
+          loading: false,
+          streamer: res.data.result['Стример'] ? res.data.result['Стример'] : [],
+          admins: res.data.result['Администратор'] ? res.data.result['Администратор'] : [],
+          users: res.data.result['Пользователь'] ? res.data.result['Пользователь'] : []
+        })
+      }).catch(err => console.log("error " + err));
+  }
 
   initialiseChat() {
     this.props.fetchMessages(this.props.chatID)
@@ -181,6 +204,27 @@ class Chat extends React.Component {
             </form> : 'This stream is offline'
           }
         </div>
+
+        <Dropdown
+          icon='users'
+          labeled
+          onClick={this.handleClick}
+        >
+          <Dropdown.Menu scrolling>
+            <Dropdown.Header content='Стример' />
+            {this.state.loading ? "loading" : this.state.streamer.map((user) => (
+              <Dropdown.Item key={user.id} {...user} content={user.username} />
+            ))}
+            <Dropdown.Header content='Администраторы' />
+            {this.state.loading ? "loading" : this.state.admins.map((user) => (
+              <Dropdown.Item key={user.id} {...user} content={user.username} />
+            ))}
+            <Dropdown.Header content='Пользователи чата' />
+            {this.state.loading ? "loading" : this.state.users.map((user) => (
+              <Dropdown.Item key={user.id} {...user} content={user.username} />
+            ))}
+          </Dropdown.Menu>
+        </Dropdown> {this.props.watchers}
 
       </Hoc>
     );
