@@ -8,8 +8,9 @@ import {
   Segment
 } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { authSignup } from "../store/actions/auth";
+
 
 class RegistrationForm extends React.Component {
   state = {
@@ -101,7 +102,7 @@ class RegistrationForm extends React.Component {
               </Segment>
             </Form>
             <Message>
-              Already have an account? <NavLink to="/login">Login</NavLink>
+              Already have an account? <span>&nbsp;&nbsp;</span> {this.props.loginButton}
             </Message>
           </React.Fragment>
         </Grid.Column>

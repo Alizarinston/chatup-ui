@@ -8,8 +8,9 @@ import {
   Segment
 } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { NavLink, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { authLogin } from "../store/actions/auth";
+
 
 class LoginForm extends React.Component {
   state = {
@@ -80,7 +81,7 @@ class LoginForm extends React.Component {
               </Segment>
             </Form>
             <Message>
-              New to us? <NavLink to="/signup">Sign Up</NavLink>
+              New to us? <span>&nbsp;&nbsp;</span> {this.props.signupButton}
             </Message>
           </React.Fragment>
         </Grid.Column>

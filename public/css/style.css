@@ -10,38 +10,38 @@
 
 /* edit style semantic ui react  */
 
-.ui.menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+/*.ui.menu {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*}*/
 
-.ui.basic.label {
-    border-radius: 8px;
-}
+/*.ui.basic.label {*/
+/*    border-radius: 8px;*/
+/*}*/
 
-.ui.basic.label:hover {
-    border: 1px solid #BABABA;
-}
+/*.ui.basic.label:hover {*/
+/*    border: 1px solid #BABABA;*/
+/*}*/
 
-.ui.dropdown {
-    font-weight: normal;
-    background: #EFEFEF;
-    border-radius: 13px;
-    padding: 8px 11px 0 11px;
-    margin: -5px 10px 0 0;
-    height: 38px;
-    float: right;
-    font-size: 14px;
-}
+/*.ui.dropdown {*/
+/*    font-weight: normal;*/
+/*    background: #EFEFEF;*/
+/*    border-radius: 13px;*/
+/*    padding: 8px 11px 0 11px;*/
+/*    margin: -5px 10px 0 0;*/
+/*    height: 38px;*/
+/*    float: right;*/
+/*    font-size: 14px;*/
+/*}*/
 
-.ui.dropdown:hover {
-    background: #E8E8E8;
-}
+/*.ui.dropdown:hover {*/
+/*    background: #E8E8E8;*/
+/*}*/
 
-.ui.dropdown>.dropdown.icon {
-    padding-left: 11px;
-}
+/*.ui.dropdown>.dropdown.icon {*/
+/*    padding-left: 11px;*/
+/*}*/
 
 /* custom style */
 .line-opacity {
@@ -60,10 +60,32 @@
     position: absolute;
     width: 25%;
     right: 0;
-    top: 80px;
-    height: calc(100% - 80px);
-    padding-left: 10px;
+    top: 133px;
+    height: calc(100% - 133px);
+    padding-left: 15px;
     border-left: 1px solid #DFDFDF;
+
+    /*font-size: 14px;*/
+    /*line-height: 1.43;*/
+    word-break: break-word;
+}
+
+.message-img {
+    min-width: 30px;
+    width: 30px;
+    height: 30px;
+    margin-right: 4px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 4px;
+
+    /*width: 27%; !* Ширина *!*/
+    float: left; /* Выстраиваем элементы по горизонтали */
+    /*margin: 0 0 0 3.5%; !* Отступ слева *!*/
+    /*background: #f0f0f0; !* Цвет фона *!*/
+    /*border-radius: 5px; !* Радиус скругления *!*/
+    /*padding: 2%; !* Поля *!*/
 }
 
 .message-input {
@@ -93,6 +115,14 @@
 }
 
 .chatHeader {
+    background: white;
+    position: absolute;
+    width: 25%;
+    right: 0;
+    top: 80px;
+    /*height: calc(100% - 80px);*/
+    border-left: 1px solid #DFDFDF;
+
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     padding: 10px 0 10px 10px;
     margin-left: -10px;
@@ -271,4 +301,8 @@ ul {
 
 .streamon:hover {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.56) 0%, rgba(255, 0, 0, 0.12) 100%);
+}
+
+.userLink:hover {
+    text-decoration: underline;
 }
