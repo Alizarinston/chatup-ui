@@ -22,7 +22,7 @@ class HomepageLayout extends React.Component {
 
     axios.get(`${HOST_URL}/api/broadcasts/`, {
       headers: { "Content-Type": "application/json" },
-      params: {limit: 1, is_active: true}
+      params: { limit: 1, is_active: true }
     })
       .then(res => {
         this.setState({
@@ -34,7 +34,7 @@ class HomepageLayout extends React.Component {
       }).catch(() => {
         axios.get(`${HOST_URL}/api/broadcasts/`, {
           headers: { "Content-Type": "application/json" },
-          params: {limit: 1}
+          params: { limit: 1 }
         })
           .then(res => {
             this.setState({
@@ -123,8 +123,7 @@ class HomepageLayout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.auth.token !== null,
-    roleID: state.auth.roleID
+    isAuthenticated: state.auth.token !== null
   };
 };
 

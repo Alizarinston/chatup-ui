@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
-import {HOST_URL} from "../settings";
-import {Button, Dropdown, Icon, Image, List, Search} from "semantic-ui-react";
-import {logout} from "../store/actions/auth";
+import { Button, Dropdown, Icon, Image, List, Search } from "semantic-ui-react";
+import { logout } from "../store/actions/auth";
+import { fetchWatchers } from "../store/actions/message";
 
 const rolesAdapt = {
   'streamer': 'Стример',
@@ -15,9 +14,7 @@ const rolesAdapt = {
 
 class ChatHeader extends React.Component {
   state = {
-    loading: true,
-    usersList: false,
-    users: []
+    usersList: false
   };
 
   usersList = () => {
@@ -26,41 +23,29 @@ class ChatHeader extends React.Component {
     }))
 
     if (!this.state.usersList) {
-      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
-      axios.defaults.xsrfCookieName = "csrftoken";
-      axios.get(`${HOST_URL}/api/broadcasts/${this.props.chatID}/watchers/`, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-        .then(res => {
-          this.setState({
-            loading: false,
-            users: res.data.result
-          })
-        }).catch(err => console.log("error " + err));
+      this.props.fetchWatchers(this.props.chatID)
     }
   }
 
   render() {
-    let users = this.state.users;
+    const { username, watchersCount, watchers } = this.props;
 
     return (
       <>
         { (this.state.usersList) ? (
           <div className="messages">
             <List>
-              {/* TODO: usersList отправить в Redux state, для Search сделать отдельный функциональный компонент */}
+              {/* TODO: для Search сделать отдельный функциональный компонент */}
               <br/>
                 <Search style={{textAlign: 'center'}}/>
               <br/>
 
-              {Object.keys(users).map((role, i) =>
+              {Object.keys(watchers).map((role, i) =>
                 <List.Item key={i}>
                   <List.Header content={rolesAdapt[role]} />
 
                   <List>
-                    {users[role].map((user) => (
+                    {watchers[role].map((user) => (
                       <List.Item
                         key={user.id}
                         content={user.username}
@@ -80,7 +65,7 @@ class ChatHeader extends React.Component {
 
         <div className="chatHeader">
           <Button
-            content={this.props.watchers}
+            content={watchersCount}
             onClick={this.usersList}
             icon={'users'}
             basic
@@ -91,7 +76,7 @@ class ChatHeader extends React.Component {
             trigger={
               <span>
                 <Image avatar src='https://static-cdn.jtvnw.net/jtv_user_pictures/panel-148316617-image-3036e147-20a6-490c-ae31-9cfa6cdd73ad' />
-                {this.props.username}
+                {username}
               </span>
             }
             pointing='top right'
@@ -127,6 +112,7 @@ class ChatHeader extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    watchersCount: state.message.watchersCount,
     watchers: state.message.watchers,
     username: state.auth.username
   };
@@ -134,7 +120,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    fetchWatchers: (chatID) => dispatch(fetchWatchers(chatID))
   };
 };
 

@@ -86,12 +86,14 @@ class Chat extends React.Component {
   }
 
   render() {
+    const { messages, active } = this.props;
+
     return (
       <Hoc>
         <div className="messages">
           <Comment.Group style={{height: '90%', overflowY: NumScroll(17)}}>
 
-          {this.props.messages && this.renderMessages(this.props.messages)}
+          {messages && this.renderMessages(messages)}
 
           <div
             ref={el => {
@@ -103,7 +105,7 @@ class Chat extends React.Component {
         </div>
 
         <div className="message-input">
-          {this.props.active ?
+          {active ?
             <form autoComplete="off" onSubmit={this.sendMessageHandler}>
               <div className="wrap">
                 <Input

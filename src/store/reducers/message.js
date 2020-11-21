@@ -3,7 +3,8 @@ import { updateObject } from "../utility";
 
 const initialState = {
   messages: [],
-  watchers: null
+  watchersCount: null,
+  watchers: []
 };
 
 const addMessage = (state, action) => {
@@ -14,13 +15,19 @@ const addMessage = (state, action) => {
 
 const updateWatchersCount = (state, action) => {
   return updateObject(state, {
-    watchers: action.watchers
+    watchersCount: action.watchersCount
   });
 };
 
 const setMessages = (state, action) => {
   return updateObject(state, {
     messages: action.messages.reverse()
+  });
+};
+
+const setWatchers = (state, action) => {
+  return updateObject(state, {
+    watchers: action.watchers
   });
 };
 
@@ -32,6 +39,8 @@ const reducer = (state = initialState, action) => {
       return updateWatchersCount(state, action);
     case actionTypes.SET_MESSAGES:
       return setMessages(state, action);
+    case actionTypes.SET_WATCHERS:
+      return setWatchers(state, action);
     default:
       return state;
   }
