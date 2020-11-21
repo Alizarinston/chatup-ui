@@ -6,13 +6,13 @@ const initialState = {
   error: null,
   loading: false,
   username: null,
-  watchtime: null,
+  watchTime: null,
   userID: null,
-  username_color: null,
+  usernameColor: null,
   roleID: null
 };
 
-const authStart = (state, action) => {
+const authStart = (state, _action) => {
   return updateObject(state, {
     error: null,
     loading: true
@@ -23,12 +23,7 @@ const authSuccess = (state, action) => {
   return updateObject(state, {
     token: action.token,
     error: null,
-    loading: false,
-    username: action.username,
-    watchtime: action.watchtime,
-    userID: action.userID,
-    username_color: action.username_color,
-    roleID: action.roleID
+    loading: false
   });
 };
 
@@ -39,13 +34,13 @@ const authFail = (state, action) => {
   });
 };
 
-const authLogout = (state, action) => {
+const authLogout = (state, _action) => {
   return updateObject(state, {
     token: null,
     username: null,
-    watchtime: null,
+    watchTime: null,
     userID: null,
-    username_color: null,
+    usernameColor: null,
     roleID: null
   });
 };
@@ -53,8 +48,10 @@ const authLogout = (state, action) => {
 const authUpdate = (state, action) => {
   return updateObject(state, {
     username: action.username,
-    watchtime: action.watchtime,
-    username_color: action.username_color
+    watchTime: action.watchTime,
+    userID: action.userID,
+    usernameColor: action.usernameColor,
+    roleID: action.roleID
   });
 };
 

@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import Hoc from "../hoc/hoc";
-import { Input, Image, Comment } from 'semantic-ui-react'
+import { Input, Image, Comment } from "semantic-ui-react"
 import WebSocketInstance from "../websocket";
 import { fetchMessages } from "../store/actions/message";
-
 
 /**
  * @return {string}

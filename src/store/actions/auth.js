@@ -1,12 +1,11 @@
-import axios from 'axios';
-import * as actionTypes from './actionTypes';
-import { HOST_URL } from '../../settings';
+import axios from "axios";
+import * as actionTypes from "./actionTypes";
+import { HOST_URL } from "../../settings";
 import WebSocketInstance from "../../websocket";
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.withCredentials = true
-
 
 export const authStart = () => {
   return {
@@ -14,24 +13,21 @@ export const authStart = () => {
   }
 };
 
-export const authUpdate = (username, watchtime, username_color) => {
+export const authUpdate = (username, watchTime, userID, usernameColor, roleID) => {
   return {
     type: actionTypes.AUTH_UPDATE,
     username: username,
-    watchtime: watchtime,
-    username_color: username_color,
+    watchTime: watchTime,
+    userID: userID,
+    usernameColor: usernameColor,
+    roleID: roleID
   };
 };
 
-export const authSuccess = (token, username, watchtime, userID, username_color, roleID) => {
+export const authSuccess = (token) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    token: token,
-    username: username,
-    watchtime: watchtime,
-    userID: userID,
-    username_color: username_color,
-    roleID: roleID
+    token: token
   }
 };
 
@@ -43,9 +39,9 @@ export const authFail = error => {
 };
 
 export const logout = () => {
-  axios.get(`${HOST_URL}/api/auth/logout/`, {headers: {
-      "Content-Type": "application/json"
-    }})
+  axios.get(`${HOST_URL}/api/auth/logout/`, {
+    headers: { "Content-Type": "application/json" }
+  })
     .then(() => {
       if (WebSocketInstance.socketRef) {
         WebSocketInstance.disconnect();
@@ -58,36 +54,41 @@ export const logout = () => {
   };
 };
 
+export const fetchUserData = () => {
+  return dispatch => {
+    axios.get(`${HOST_URL}/api/general/user/`, {
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => {
+        const username = res.data.username;
+        const watchTime = res.data.watchtime;
+        const userID = res.data.id;
+        const usernameColor = res.data.username_color;
+        const roleID = res.data.role;
+
+        dispatch(authUpdate(username, watchTime, userID, usernameColor, roleID));
+      })
+      /* 401 here is ok, means token has expired */
+      .catch(err => {
+        console.log("error " + err)
+        localStorage.clear();
+      });
+  }
+};
+
 export const authLogin = (username, password) => {
   return dispatch => {
     dispatch(authStart());
     axios.post(`${HOST_URL}/api/auth/login/`, {
       username: username,
       password: password
-    }, {credentials: "include"})
+    }, { credentials: 'include' })
       .then(() => {
         const token = "true";
+        localStorage.setItem('token', token);
 
-        axios.get(`${HOST_URL}/api/general/user/`, {headers: {
-            "Content-Type": "application/json"
-          }})
-          .then(res => {
-            localStorage.setItem('token', token);
-            localStorage.setItem('username', res.data.username);
-            localStorage.setItem('watchtime', res.data.watchtime);
-            localStorage.setItem('userID', res.data.id);
-            localStorage.setItem('username_color', res.data.username_color);
-            localStorage.setItem('roleID', res.data.role);
-
-
-            const username = res.data.username;
-            const watchtime = res.data.watchtime;
-            const userID = res.data.id;
-            const username_color = res.data.username_color;
-            const roleID = res.data.role;
-
-            dispatch(authSuccess(token, username, watchtime, userID, username_color, roleID));
-          });
+        dispatch(authSuccess(token));
+        dispatch(fetchUserData());
       })
       .catch(err => {
         dispatch(authFail(err))
@@ -103,30 +104,13 @@ export const authSignup = (username, email, password1, password2) => {
       email: email,
       password1: password1,
       password2: password2
-    }, )
+    }, { credentials: 'include' } )
       .then(() => {
         const token = "true";
+        localStorage.setItem('token', token);
 
-        axios.get(`${HOST_URL}/api/general/user/`, {headers: {
-            "Content-Type": "application/json"
-          }})
-          .then(res => {
-            localStorage.setItem('token', token);
-            localStorage.setItem('username', res.data.username);
-            localStorage.setItem('watchtime', res.data.watchtime);
-            localStorage.setItem('userID', res.data.id);
-            localStorage.setItem('username_color', res.data.username_color);
-            localStorage.setItem('roleID', res.data.role);
-
-
-            const username = res.data.username;
-            const watchtime = res.data.watchtime;
-            const userID = res.data.id;
-            const username_color = res.data.username_color;
-            const roleID = res.data.role;
-
-            dispatch(authSuccess(token, username, watchtime, userID, username_color, roleID));
-          });
+        dispatch(authSuccess(token));
+        dispatch(fetchUserData());
       })
       .catch(err => {
         dispatch(authFail(err))
@@ -137,39 +121,9 @@ export const authSignup = (username, email, password1, password2) => {
 export const authCheckState = () => {
   return dispatch => {
     const token = localStorage.getItem('token');
-    const username = localStorage.getItem('username');
-    const watchtime = localStorage.getItem('watchtime');
-    const userID = localStorage.getItem('userID');
-    const username_color = localStorage.getItem('username_color');
-    const roleID = localStorage.getItem('roleID');
-
-    axios.get(`${HOST_URL}/api/general/user/`, {headers: {
-        "Content-Type": "application/json"
-      }})
-      .then(res => {
-        const token = 'true';
-
-        localStorage.setItem('token', token);
-        localStorage.setItem('username', res.data.username);
-        localStorage.setItem('watchtime', res.data.watchtime);
-        localStorage.setItem('userID', res.data.id);
-        localStorage.setItem('username_color', res.data.username_color);
-        localStorage.setItem('roleID', res.data.role);
-
-
-        const username = res.data.username;
-        const watchtime = res.data.watchtime;
-        const userID = res.data.id;
-        const username_color = res.data.username_color;
-        const roleID = res.data.role;
-
-        dispatch(authSuccess(token, username, watchtime, userID, username_color, roleID));
-      }).catch(() => {});
-
-    if (token === undefined) {
-      dispatch(logout());
-    } else {
-      dispatch(authSuccess(token, username, watchtime, userID, username_color, roleID));
+    if (token !== null) {
+      dispatch(authSuccess(token));
+      dispatch(fetchUserData());
     }
   }
 };

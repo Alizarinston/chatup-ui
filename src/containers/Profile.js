@@ -25,8 +25,8 @@ class Profile extends React.Component {
             <p>User ID: {this.props.userID}</p>
             <p>Username: {this.props.username}</p>
             <p>Role: {roles[this.props.roleID]}</p>
-            <p>Watchtime: {this.props.watchtime}</p>
-            <p>Username color: {this.props.username_color}</p>
+            <p>WatchTime: {this.props.watchTime}</p>
+            <p>Username color: {this.props.usernameColor}</p>
           </Hoc>
         ) : null}
       </div>
@@ -37,8 +37,8 @@ class Profile extends React.Component {
 const mapStateToProps = state => {
   return {
     username: state.auth.username,
-    watchtime: state.auth.watchtime,
-    username_color: state.auth.username_color,
+    watchTime: state.auth.watchTime,
+    usernameColor: state.auth.usernameColor,
     userID: state.auth.userID,
     roleID: state.auth.roleID,
     token: state.auth.token

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 const TabDescription = () => (
   <div className="timetable" style={{width: '71%', marginRight: '20px'}}>

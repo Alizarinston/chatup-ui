@@ -1,16 +1,15 @@
-import React from 'react'
+import React from "react"
 import {connect} from "react-redux";
-import Chat from "./Chat";
 import ReactHlsPlayer from 'react-hls-player'
 import {Icon} from 'semantic-ui-react'
 import axios from "axios";
+
+import Chat from "./Chat";
 import {HOST_URL} from "../settings";
-
-import TabDescription from "../components/TabDescription"
-import TabDonations from "../components/TabDonations"
-import AuthForm from "../components/AuthForm"
 import ChatHeader from "./ChatHeader";
-
+import AuthForm from "../components/AuthForm"
+import TabDonations from "../components/TabDonations"
+import TabDescription from "../components/TabDescription"
 
 class HomepageLayout extends React.Component {
   state = {
@@ -20,11 +19,11 @@ class HomepageLayout extends React.Component {
   componentDidMount() {
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
     axios.defaults.xsrfCookieName = "csrftoken";
-    axios.defaults.withCredentials = true
 
-    axios.get(`${HOST_URL}/api/broadcasts/`, { headers: {
-        "Content-Type": "application/json"
-      }, params: {limit: 1, is_active: true} })
+    axios.get(`${HOST_URL}/api/broadcasts/`, {
+      headers: { "Content-Type": "application/json" },
+      params: {limit: 1, is_active: true}
+    })
       .then(res => {
         this.setState({
           loading: false,
@@ -33,18 +32,20 @@ class HomepageLayout extends React.Component {
           active: res.data.result[0].is_active,
         })
       }).catch(() => {
-      axios.get(`${HOST_URL}/api/broadcasts/`, { headers: {
-          "Content-Type": "application/json"
-        }, params: {limit: 1} })
-        .then(res => {
-          this.setState({
-            loading: false,
-            chatID: res.data.result[0].id,
-            title: res.data.result[0].title,
-            active: res.data.result[0].is_active,
+        axios.get(`${HOST_URL}/api/broadcasts/`, {
+          headers: { "Content-Type": "application/json" },
+          params: {limit: 1}
+        })
+          .then(res => {
+            this.setState({
+              loading: false,
+              chatID: res.data.result[0].id,
+              title: res.data.result[0].title,
+              active: res.data.result[0].is_active
+            })
           })
-        }).catch(err => console.log("error " + err))
-    });
+          .catch(err => console.log("error " + err))
+      });
   }
 
   render() {
@@ -102,8 +103,13 @@ class HomepageLayout extends React.Component {
         </div>
 
         {
-          (!this.props.authenticated) ? <AuthForm/> :
-            (this.state.loading) ? <div/> :
+          (!this.props.isAuthenticated) ? <AuthForm/> :
+            (this.state.loading) ?
+              <React.Fragment>
+                <div className="messages"/>
+                <div className="chatHeader" style={{height: '53px'}}/>
+              </React.Fragment>
+              :
               <React.Fragment>
                 <Chat chatID={this.state.chatID} active={this.state.active}/>
                 <ChatHeader chatID={this.state.chatID}/>
@@ -117,7 +123,7 @@ class HomepageLayout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.token !== null,
+    isAuthenticated: state.auth.token !== null,
     roleID: state.auth.roleID
   };
 };

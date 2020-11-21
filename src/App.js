@@ -8,19 +8,19 @@ import * as messageActions from "./store/actions/message";
 import WebSocketInstance from "./websocket";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    WebSocketInstance.addCallbacks(
+      this.props.addMessage.bind(this),
+      this.props.updateWatchersCount.bind(this)
+    );
+  }
 
   componentDidMount() {
     if (!this.props.isAuthenticated) {
       this.props.onTryAutoSignup();
     }
-  }
-
-  constructor(props) {
-    super(props);
-    WebSocketInstance.addCallbacks(
-      this.props.addMessage.bind(this),
-      this.props.updateWatchersCount.bind(this)
-    );
   }
 
   render() {
@@ -42,7 +42,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onTryAutoSignup: () => dispatch(actions.authCheckState()),
-    setProfile: (username, watchtime, username_color) => dispatch(actions.authUpdate(username, watchtime, username_color)),
     addMessage: message => dispatch(messageActions.addMessage(message)),
     setMessages: messages => dispatch(messageActions.setMessages(messages)),
     updateWatchersCount: message => dispatch(messageActions.updateWatchersCount(message))

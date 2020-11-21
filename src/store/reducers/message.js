@@ -14,7 +14,7 @@ const addMessage = (state, action) => {
 
 const updateWatchersCount = (state, action) => {
   return updateObject(state, {
-    watchers: action.message
+    watchers: action.watchers
   });
 };
 

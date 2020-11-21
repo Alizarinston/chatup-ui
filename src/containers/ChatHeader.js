@@ -5,7 +5,6 @@ import {HOST_URL} from "../settings";
 import {Button, Dropdown, Icon, Image, List, Search} from "semantic-ui-react";
 import {logout} from "../store/actions/auth";
 
-
 const rolesAdapt = {
   'streamer': 'Стример',
   'administrator': 'Администраторы',
@@ -35,7 +34,6 @@ class ChatHeader extends React.Component {
         }
       })
         .then(res => {
-          console.log(res.data.result)
           this.setState({
             loading: false,
             users: res.data.result

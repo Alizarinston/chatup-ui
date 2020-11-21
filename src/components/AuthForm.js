@@ -1,8 +1,7 @@
-import React, {useState} from 'react'
-import {Button, Icon, Menu} from 'semantic-ui-react'
+import React, {useState} from "react"
+import {Button, Icon, Menu} from "semantic-ui-react"
 import Signup from "../containers/Signup";
 import Login from "../containers/Login";
-
 
 function AuthForm () {
   const [auth, setAuth] = useState(false)

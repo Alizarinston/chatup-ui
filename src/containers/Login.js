@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { authLogin } from "../store/actions/auth";
 
-
 class LoginForm extends React.Component {
   state = {
     username: "",
