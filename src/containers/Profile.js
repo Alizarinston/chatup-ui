@@ -1,34 +1,74 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import Hoc from "../hoc/hoc";
+import { Button, Segment, Menu, Grid, Image } from "semantic-ui-react";
 
 const roles = {
   3: "Администратор",
   2: "Модератор",
   4: "Стример",
   1: "Пользователь",
+  5: "VIP"
 }
 
 class Profile extends React.Component {
+  state = { activeItem: 'Профиль' }
+
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    if (this.props.token === undefined) {
+    const { token, userID, username, roleID, watchTime, usernameColor } = this.props
+    const { activeItem } = this.state
+
+    if (token === null) {
       return <Redirect to="/" />;
     }
     return (
-      <div className="contact-profile">
-        <br/><br/><br/>
-        {this.props.username !== null ? (
-          <Hoc>
-            <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/panel-148316617-image-3036e147-20a6-490c-ae31-9cfa6cdd73ad" alt="" />
-            <p>User ID: {this.props.userID}</p>
-            <p>Username: {this.props.username}</p>
-            <p>Role: {roles[this.props.roleID]}</p>
-            <p>WatchTime: {this.props.watchTime}</p>
-            <p>Username color: {this.props.usernameColor}</p>
-          </Hoc>
-        ) : null}
+      <div>
+        <Segment style={{height: '927px'}}>
+          <Menu pointing secondary>
+            <Menu.Item
+              name='Профиль'
+              active={activeItem === 'Профиль'}
+              onClick={this.handleItemClick}
+            />
+
+            <Menu.Item
+              name='Статистика'
+              active={activeItem === 'Статистика'}
+              onClick={this.handleItemClick}
+            />
+
+            <Menu.Item
+              name='Управление'
+              active={activeItem === 'Управление'}
+              onClick={this.handleItemClick}
+            />
+
+            <Menu.Menu position='right'>
+              <Menu.Item>
+                <Button basic active icon={'angle right'} onClick={() => {this.props.profileTab()}}/>
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu>
+
+          <div className="contact-profile">
+            <br/>
+            <Grid celled>
+              <Grid.Column width={4}>
+                <Image src="https://static-cdn.jtvnw.net/jtv_user_pictures/panel-148316617-image-3036e147-20a6-490c-ae31-9cfa6cdd73ad" />
+              </Grid.Column>
+
+              <Grid.Column width={9}>
+                <br/><br/><br/><br/>
+                <p>ID пользователя: {userID}</p>
+                <p>Имя пользователя: <span style={{color: '#' + usernameColor}}>{username}</span></p>
+                <p>Статус: {roles[roleID]}</p>
+                <p>Время просмотра: {watchTime} минут</p>
+              </Grid.Column>
+            </Grid>
+          </div>
+        </Segment>
       </div>
     );
   }

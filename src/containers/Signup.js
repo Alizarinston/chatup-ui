@@ -101,7 +101,14 @@ class RegistrationForm extends React.Component {
               </Segment>
             </Form>
             <Message>
-              Already have an account? <span>&nbsp;&nbsp;</span> {this.props.loginButton}
+              Already have an account? <span>&nbsp;&nbsp;</span>
+              <Button
+                compact
+                icon
+                color={"google plus"}
+                content={'Login'}
+                onClick={this.props.changeAuth}
+              />
             </Message>
           </React.Fragment>
         </Grid.Column>

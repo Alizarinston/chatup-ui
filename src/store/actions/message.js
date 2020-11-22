@@ -27,7 +27,6 @@ export const setMessages = messages  => {
 };
 
 export const setWatchers = watchers => {
-  console.log(watchers)
   return {
     type: actionTypes.SET_WATCHERS,
     watchers: watchers

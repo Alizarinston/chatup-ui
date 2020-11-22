@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, Dropdown, Icon, Image, List, Search } from "semantic-ui-react";
+import {Button, Dropdown, Icon, Image, List, Loader, Search} from "semantic-ui-react";
 import { logout } from "../store/actions/auth";
 import { fetchWatchers } from "../store/actions/message";
 
@@ -40,6 +40,8 @@ class ChatHeader extends React.Component {
                 <Search style={{textAlign: 'center'}}/>
               <br/>
 
+              <Loader active={watchers.length === 0}/>
+
               {Object.keys(watchers).map((role, i) =>
                 <List.Item key={i}>
                   <List.Header content={rolesAdapt[role]} />
@@ -70,6 +72,8 @@ class ChatHeader extends React.Component {
             icon={'users'}
             basic
             compact
+            loading={watchersCount === null}
+            color={'purple'}
           />
 
           <Dropdown
@@ -88,7 +92,7 @@ class ChatHeader extends React.Component {
             }}
           >
             <Dropdown.Menu>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={() => this.props.profileTab()}>
                 <Icon name='user'/>
                 Аккаунт
               </Dropdown.Item>

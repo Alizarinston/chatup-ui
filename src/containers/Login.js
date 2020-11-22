@@ -80,7 +80,14 @@ class LoginForm extends React.Component {
               </Segment>
             </Form>
             <Message>
-              New to us? <span>&nbsp;&nbsp;</span> {this.props.signupButton}
+              New to us? <span>&nbsp;&nbsp;</span>
+              <Button
+                compact
+                icon
+                color={"google plus"}
+                content={'Sign Up'}
+                onClick={this.props.changeAuth}
+              />
             </Message>
           </React.Fragment>
         </Grid.Column>

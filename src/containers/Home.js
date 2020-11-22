@@ -1,19 +1,27 @@
 import React from "react"
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import ReactHlsPlayer from 'react-hls-player'
-import {Icon} from 'semantic-ui-react'
+import { Icon, Loader } from 'semantic-ui-react'
 import axios from "axios";
 
 import Chat from "./Chat";
-import {HOST_URL} from "../settings";
+import { HOST_URL } from "../settings";
 import ChatHeader from "./ChatHeader";
 import AuthForm from "../components/AuthForm"
 import TabDonations from "../components/TabDonations"
 import TabDescription from "../components/TabDescription"
+import Profile from "./Profile";
 
 class HomepageLayout extends React.Component {
   state = {
-    loading: true
+    loading: true,
+    profile: false
+  }
+
+  profileTab = () => {
+    this.setState(state => ({
+      profile: !state.profile
+    }))
   }
 
   componentDidMount() {
@@ -49,6 +57,7 @@ class HomepageLayout extends React.Component {
   }
 
   render() {
+    const { active, chatID, loading, title, profile } = this.state
     return (
       <div>
       
@@ -77,42 +86,50 @@ class HomepageLayout extends React.Component {
         <hr className="line-opacity"/>
         <div className="playerBox">
 
-          <ReactHlsPlayer poster={"https://sun9-35.userapi.com/c849532/v849532312/15082b/efNn97HREgo.jpg"}
-                          url='//d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'
-                          autoplay={false}
-                          controls={true}
-                          height={'85%'}
-                          className="videoPlayer"
-          />
+          {
+            (profile) ? <Profile profileTab={this.profileTab}/> :
+              <React.Fragment>
+                <ReactHlsPlayer poster={"https://sun9-35.userapi.com/c849532/v849532312/15082b/efNn97HREgo.jpg"}
+                                url='//d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'
+                                autoplay={false}
+                                controls={true}
+                                height={'85%'}
+                                className="videoPlayer"
+                />
 
-          <div className="contentStream">
-            <h1>{this.state.title}</h1>
+                <div className="contentStream">
+                  <h1>{title}</h1>
 
-            <div className="flex-block">
-              <TabDescription/>
-              <TabDonations/>
-            </div>
+                  <div className="flex-block">
+                    <TabDescription/>
+                    <TabDonations/>
+                  </div>
 
-            <div className="soc-button">
-              <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#252525'}}><Icon name='money' size='large' style={{marginRight:'10px'}}/>Задонатить</a>
-              <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#4A76A8'}}><Icon name='vk' size='large'/> Группа Вк</a>
-              <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#FF0000'}}><Icon name='youtube' size='large'/> Ютуб</a>
-            </div>
-          </div>
+                  <div className="soc-button">
+                    <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#252525'}}><Icon name='money' size='large' style={{marginRight:'10px'}}/>Задонатить</a>
+                    <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#4A76A8'}}><Icon name='vk' size='large'/> Группа Вк</a>
+                    <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#FF0000'}}><Icon name='youtube' size='large'/> Ютуб</a>
+                  </div>
+                </div>
+
+              </React.Fragment>
+          }
 
         </div>
 
         {
           (!this.props.isAuthenticated) ? <AuthForm/> :
-            (this.state.loading) ?
+            (loading) ?
               <React.Fragment>
-                <div className="messages"/>
-                <div className="chatHeader" style={{height: '53px'}}/>
+                  <div className="messages">
+                    <Loader active size={"big"} style={{height: '200px'}}/>
+                  </div>
+                  <div className="chatHeader" style={{height: '53px'}}/>
               </React.Fragment>
               :
               <React.Fragment>
-                <Chat chatID={this.state.chatID} active={this.state.active}/>
-                <ChatHeader chatID={this.state.chatID}/>
+                <Chat chatID={chatID} active={active}/>
+                <ChatHeader chatID={chatID} profileTab={this.profileTab}/>
               </React.Fragment>
         }
 

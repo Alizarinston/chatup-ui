@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-import {Button, Icon, Menu} from "semantic-ui-react"
+import React, { useState } from "react"
+import { Icon, Menu } from "semantic-ui-react"
 import Signup from "../containers/Signup";
 import Login from "../containers/Login";
 
@@ -27,12 +27,8 @@ function AuthForm () {
       <div className="messages">
         { Array.from({ length: 10 }, (_, i) => <br key={i}/>) }
         { (auth) ?
-          <Signup loginButton = {
-            <Button compact icon color={"google plus"} content={'Login'} onClick={changeAuth} />
-          } /> :
-          <Login signupButton = {
-            <Button compact icon color={"google plus"} content={'Sign Up'} onClick={changeAuth}/>
-          } />
+          <Signup changeAuth = {changeAuth} /> :
+          <Login changeAuth = {changeAuth} />
         }
       </div>
     </>
