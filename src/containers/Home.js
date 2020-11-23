@@ -8,7 +8,7 @@ import { HOST_URL } from "../settings";
 import ChatHeader from "./ChatHeader";
 import AuthForm from "../components/AuthForm"
 import TabDonations from "../components/TabDonations"
-import TabDescription from "../components/TabDescription"
+import TabSchedule from "../components/TabSchedule"
 import Profile from "./Profile";
 import Player from "../components/Player";
 
@@ -94,7 +94,7 @@ class HomepageLayout extends React.Component {
             <h1>{title}</h1>
 
             <div className="flex-block">
-              <TabDescription/>
+              <TabSchedule/>
               <TabDonations/>
             </div>
 
