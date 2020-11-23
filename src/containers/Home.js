@@ -1,7 +1,6 @@
 import React from "react"
 import { connect } from "react-redux";
-import ReactHlsPlayer from 'react-hls-player'
-import { Icon, Loader } from 'semantic-ui-react'
+import { Icon, Loader} from 'semantic-ui-react'
 import axios from "axios";
 
 import Chat from "./Chat";
@@ -11,16 +10,19 @@ import AuthForm from "../components/AuthForm"
 import TabDonations from "../components/TabDonations"
 import TabDescription from "../components/TabDescription"
 import Profile from "./Profile";
+import Player from "../components/Player";
 
 class HomepageLayout extends React.Component {
   state = {
     loading: true,
-    profile: false
+    profile: false,
+    pip: false
   }
 
   profileTab = () => {
     this.setState(state => ({
-      profile: !state.profile
+      profile: !state.profile,
+      pip: !state.pip
     }))
   }
 
@@ -57,7 +59,7 @@ class HomepageLayout extends React.Component {
   }
 
   render() {
-    const { active, chatID, loading, title, profile } = this.state
+    const { active, chatID, loading, title, profile, pip } = this.state
     return (
       <div>
       
@@ -84,38 +86,27 @@ class HomepageLayout extends React.Component {
         </div>
 
         <hr className="line-opacity"/>
+
         <div className="playerBox">
+          <Player pip={pip}/>
 
-          {
-            (profile) ? <Profile profileTab={this.profileTab}/> :
-              <React.Fragment>
-                <ReactHlsPlayer poster={"https://sun9-35.userapi.com/c849532/v849532312/15082b/efNn97HREgo.jpg"}
-                                url='//d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8'
-                                autoplay={false}
-                                controls={true}
-                                height={'85%'}
-                                className="videoPlayer"
-                />
+          <div className="contentStream">
+            <h1>{title}</h1>
 
-                <div className="contentStream">
-                  <h1>{title}</h1>
+            <div className="flex-block">
+              <TabDescription/>
+              <TabDonations/>
+            </div>
 
-                  <div className="flex-block">
-                    <TabDescription/>
-                    <TabDonations/>
-                  </div>
-
-                  <div className="soc-button">
-                    <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#252525'}}><Icon name='money' size='large' style={{marginRight:'10px'}}/>Задонатить</a>
-                    <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#4A76A8'}}><Icon name='vk' size='large'/> Группа Вк</a>
-                    <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#FF0000'}}><Icon name='youtube' size='large'/> Ютуб</a>
-                  </div>
-                </div>
-
-              </React.Fragment>
-          }
-
+            <div className="soc-button">
+              <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#252525'}}><Icon name='money' size='large' style={{marginRight:'10px'}}/>Задонатить</a>
+              <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#4A76A8'}}><Icon name='vk' size='large'/> Группа Вк</a>
+              <a href="/#" target="_blank" rel="nofollow" className="stream-button" style={{color:'#FF0000'}}><Icon name='youtube' size='large'/> Ютуб</a>
+            </div>
+          </div>
         </div>
+
+        { (profile) && <Profile profileTab={this.profileTab}/> }
 
         {
           (!this.props.isAuthenticated) ? <AuthForm/> :

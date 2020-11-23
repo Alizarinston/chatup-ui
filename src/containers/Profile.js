@@ -24,7 +24,7 @@ class Profile extends React.Component {
       return <Redirect to="/" />;
     }
     return (
-      <div>
+      <div className="playerBox">
         <Segment style={{height: '927px'}}>
           <Menu pointing secondary>
             <Menu.Item
