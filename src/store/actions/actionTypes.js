@@ -8,3 +8,5 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const SET_MESSAGES = "SET_MESSAGES";
 export const UPDATE_WATCHERS_COUNT = "UPDATE_WATCHERS_COUNT";
 export const SET_WATCHERS = "SET_WATCHERS";
+
+export const SET_IMAGES = "SET_IMAGES";

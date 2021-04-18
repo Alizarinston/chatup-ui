@@ -15,8 +15,10 @@ class Player extends React.Component {
           width={'100%'}
           pip={pip}
           stopOnUnmount={false}
-          config={{ attributes: { poster: 'https://sun9-35.userapi.com/c849532/v849532312/15082b/efNn97HREgo.jpg' } }}
+          // config={{ attributes: { poster: 'http://sun9-31.userapi.com/0ZQ055DIy66f5w0wpuBz0KnVeEpOcEBGHhXq-A/aUkl95qR9dU.jpg' } }}
         />
+        {/*<iframe frameBorder="0" allowFullScreen width="800" height="450"*/}
+        {/*        src="https://goodgame.ru/player?58734"></iframe>*/}
       </div>
     )
   }

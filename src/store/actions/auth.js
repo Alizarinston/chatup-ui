@@ -2,6 +2,7 @@ import axios from "axios";
 import * as actionTypes from "./actionTypes";
 import { HOST_URL } from "../../settings";
 import WebSocketInstance from "../../websocket";
+import { fetchImages } from "./image";
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -123,6 +124,7 @@ export const authCheckState = () => {
     const token = localStorage.getItem('token');
     if (token !== null) {
       dispatch(authSuccess(token));
+      dispatch(fetchImages());
       dispatch(fetchUserData());
     }
   }
