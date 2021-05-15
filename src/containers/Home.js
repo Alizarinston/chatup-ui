@@ -88,7 +88,7 @@ class HomepageLayout extends React.Component {
         <hr className="line-opacity"/>
 
         <div className="playerBox">
-          <Player pip={pip}/>
+          <Player pip={pip} chatID={chatID}/>
 
           <div className="contentStream">
             <h1>{title}</h1>

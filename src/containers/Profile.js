@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Button, Segment, Menu, Grid, Image } from "semantic-ui-react";
+import UserImage from "../components/Image";
 
 const roles = {
   3: "Администратор",
@@ -17,7 +18,7 @@ class Profile extends React.Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    const { token, userID, username, roleID, watchTime, usernameColor } = this.props
+    const { token, userID, username, roleID, watchTime, usernameColor, images } = this.props
     const { activeItem } = this.state
 
     if (token === null) {
@@ -62,9 +63,13 @@ class Profile extends React.Component {
               <Grid.Column width={9}>
                 <br/><br/><br/><br/>
                 <p>ID пользователя: {userID}</p>
-                <p>Имя пользователя: <span style={{color: '#' + usernameColor}}>{username}</span></p>
+                <p>
+                  Имя пользователя: <span style={{color: '#' + usernameColor}}>{username}</span>
+                  {/*<ColorPicker color={'#' + usernameColor}/>*/}
+                </p>
                 <p>Статус: {roles[roleID]}</p>
                 <p>Время просмотра: {watchTime} минут</p>
+                <p> <UserImage data={images[0]['image']}/> </p>
               </Grid.Column>
             </Grid>
           </div>
@@ -76,6 +81,7 @@ class Profile extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    images: state.image.images,
     username: state.auth.username,
     watchTime: state.auth.watchTime,
     usernameColor: state.auth.usernameColor,

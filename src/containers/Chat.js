@@ -96,14 +96,14 @@ class Chat extends React.Component {
   }
 
   render() {
-    const { messages, active } = this.props;
+    const { messages, active, images } = this.props;
 
     return (
       <Hoc>
         <div className="messages">
           <Comment.Group style={{height: '90%', overflowY: NumScroll(17)}}>
 
-          {messages && this.renderMessages(messages)}
+          {images && messages && this.renderMessages(messages)}
 
           <div
             ref={el => {

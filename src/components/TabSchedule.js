@@ -35,7 +35,7 @@ class TabSchedule extends React.Component {
           <div className="timetable-content">
             {
               schedule[0].text.split('\n').map((str, i) =>
-                (i === 0) ? <h4>{str}</h4> : <p style={{margin: '0', textIndent: '3ch'}}>{str}</p>
+                (i === 0) ? <h4 key={i}>{str}</h4> : <p key={i} style={{margin: '0', textIndent: '3ch'}}>{str}</p>
               )
             }
           </div>
