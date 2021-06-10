@@ -62,12 +62,33 @@
     right: 0;
     top: 133px;
     height: calc(100% - 133px);
-    padding-left: 15px;
+    /*padding-left: 15px;*/
+    border-left: 1px solid #DFDFDF;
+
+    font-size: 14px;
+    line-height: 1.43;
+    word-break: break-all;
+}
+
+[contenteditable=true]:empty:before{
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block; /* For Firefox */
+}
+
+.messages2 {
+    background: white;
+    position: absolute;
+    width: 25%;
+    right: 0;
+    top: 133px;
+    height: calc(100% - 133px);
+    /*padding-left: 15px;*/
     border-left: 1px solid #DFDFDF;
 
     /*font-size: 14px;*/
     /*line-height: 1.43;*/
-    word-break: break-all;
+    /*word-break: break-all;*/
 }
 
 .message-img {

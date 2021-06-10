@@ -16,7 +16,7 @@ class Player extends React.Component {
           width={'100%'}
           pip={pip}
           stopOnUnmount={false}
-          // light={true}
+          light={true}
           // config={{ attributes: { poster: 'http://sun9-31.userapi.com/0ZQ055DIy66f5w0wpuBz0KnVeEpOcEBGHhXq-A/aUkl95qR9dU.jpg' } }}
         />
         {/*<iframe frameBorder="0" allowFullScreen width="800" height="450"*/}

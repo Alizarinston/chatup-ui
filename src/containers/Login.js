@@ -43,7 +43,16 @@ class LoginForm extends React.Component {
           <Header as="h2" color="teal" textAlign="center">
             Log-in to your account
           </Header>
-          {error && <p>{this.props.error.message}</p>}
+          {error && console.log(error.response.data)}
+
+          {
+            error && error.response.data['detail'] &&
+            <Message
+              error
+              header={'login failed'}
+              content={error.response.data['detail']}
+            />
+          }
 
           <React.Fragment>
             <Form size="large" onSubmit={this.handleSubmit}>
@@ -56,6 +65,7 @@ class LoginForm extends React.Component {
                   icon="user"
                   iconPosition="left"
                   placeholder="Username"
+                  error={error && error.response.data['username'] && { content: error.response.data['username'], pointing: 'below' }}
                 />
                 <Form.Input
                   onChange={this.handleChange}
@@ -66,6 +76,7 @@ class LoginForm extends React.Component {
                   iconPosition="left"
                   placeholder="Password"
                   type="password"
+                  error={error && error.response.data['password'] && { content: error.response.data['password'] }}
                 />
 
                 <Button

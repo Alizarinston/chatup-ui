@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Icon, Loader} from 'semantic-ui-react'
 import axios from "axios";
 
-import Chat from "./Chat";
 import { HOST_URL } from "../settings";
 import ChatHeader from "./ChatHeader";
 import AuthForm from "../components/AuthForm"
@@ -11,6 +10,7 @@ import TabDonations from "../components/TabDonations"
 import TabSchedule from "../components/TabSchedule"
 import Profile from "./Profile";
 import Player from "../components/Player";
+import ChatRoom from "./ChatRoom";
 
 class HomepageLayout extends React.Component {
   state = {
@@ -119,7 +119,9 @@ class HomepageLayout extends React.Component {
               </React.Fragment>
               :
               <React.Fragment>
-                <Chat chatID={chatID} active={active}/>
+                <div className="messages">
+                  <ChatRoom chatID={chatID} active={active}/>
+                </div>
                 <ChatHeader chatID={chatID} profileTab={this.profileTab}/>
               </React.Fragment>
         }
