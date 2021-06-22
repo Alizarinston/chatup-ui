@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Button, Segment, Menu, Grid, Image } from "semantic-ui-react";
+import {Button, Segment, Menu, Grid, Image} from "semantic-ui-react";
 import UserImage from "../components/Image";
+import {UploadImage} from "../components/UploadImage";
 
 const roles = {
   3: "Администратор",
@@ -70,6 +71,7 @@ class Profile extends React.Component {
                 <p>Статус: {roles[roleID]}</p>
                 <p>Время просмотра: {watchTime} минут</p>
                 <p> <UserImage data={images[0]['image']}/> </p>
+                <UploadImage/>
               </Grid.Column>
             </Grid>
           </div>
