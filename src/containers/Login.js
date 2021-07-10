@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { authLogin } from "../store/actions/auth";
+import {FlipIn} from "../components/AnimationFlipIn";
 
 class LoginForm extends React.Component {
   state = {
@@ -34,75 +35,77 @@ class LoginForm extends React.Component {
       return <Redirect to="/" />;
     }
     return (
-      <Grid
-        textAlign="center"
-        style={{ height: "100px" }}
-        verticalAlign="middle"
-      >
-        <Grid.Column style={{ maxWidth: 450 }}>
-          <Header as="h2" color="teal" textAlign="center">
-            Log-in to your account
-          </Header>
-          {error && console.log(error.response.data)}
+      <FlipIn>
+        <Grid
+          textAlign="center"
+          style={{ height: "100px" }}
+          verticalAlign="middle"
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as="h2" color="teal" textAlign="center">
+              Log-in to your account
+            </Header>
+            {error && console.log(error.response.data)}
 
-          {
-            error && error.response.data['detail'] &&
-            <Message
-              error
-              header={'login failed'}
-              content={error.response.data['detail']}
-            />
-          }
-
-          <React.Fragment>
-            <Form size="large" onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input
-                  onChange={this.handleChange}
-                  value={username}
-                  name="username"
-                  fluid
-                  icon="user"
-                  iconPosition="left"
-                  placeholder="Username"
-                  error={error && error.response.data['username'] && { content: error.response.data['username'], pointing: 'below' }}
-                />
-                <Form.Input
-                  onChange={this.handleChange}
-                  fluid
-                  value={password}
-                  name="password"
-                  icon="lock"
-                  iconPosition="left"
-                  placeholder="Password"
-                  type="password"
-                  error={error && error.response.data['password'] && { content: error.response.data['password'] }}
-                />
-
-                <Button
-                  color="teal"
-                  fluid
-                  size="large"
-                  loading={loading}
-                  disabled={loading}
-                >
-                  Login
-                </Button>
-              </Segment>
-            </Form>
-            <Message>
-              New to us? <span>&nbsp;&nbsp;</span>
-              <Button
-                compact
-                icon
-                color={"google plus"}
-                content={'Sign Up'}
-                onClick={this.props.changeAuth}
+            {
+              error && error.response.data['detail'] &&
+              <Message
+                error
+                header={'login failed'}
+                content={error.response.data['detail']}
               />
-            </Message>
-          </React.Fragment>
-        </Grid.Column>
-      </Grid>
+            }
+
+            <React.Fragment>
+              <Form size="large" onSubmit={this.handleSubmit}>
+                <Segment stacked>
+                  <Form.Input
+                    onChange={this.handleChange}
+                    value={username}
+                    name="username"
+                    fluid
+                    icon="user"
+                    iconPosition="left"
+                    placeholder="Username"
+                    error={error && error.response.data['username'] && { content: error.response.data['username'], pointing: 'below' }}
+                  />
+                  <Form.Input
+                    onChange={this.handleChange}
+                    fluid
+                    value={password}
+                    name="password"
+                    icon="lock"
+                    iconPosition="left"
+                    placeholder="Password"
+                    type="password"
+                    error={error && error.response.data['password'] && { content: error.response.data['password'] }}
+                  />
+
+                  <Button
+                    color="teal"
+                    fluid
+                    size="large"
+                    loading={loading}
+                    disabled={loading}
+                  >
+                    Login
+                  </Button>
+                </Segment>
+              </Form>
+              <Message>
+                New to us? <span>&nbsp;&nbsp;</span>
+                <Button
+                  compact
+                  icon
+                  color={"google plus"}
+                  content={'Sign Up'}
+                  onClick={this.props.changeAuth}
+                />
+              </Message>
+            </React.Fragment>
+          </Grid.Column>
+        </Grid>
+      </FlipIn>
     );
   }
 }
