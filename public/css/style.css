@@ -8,6 +8,32 @@
 .playerBox::-webkit-scrollbar-track {background: none;}
 .playerBox::-webkit-scrollbar {width: 4px;}
 
+.reply {
+    visibility: hidden;
+}
+
+.chatLine {
+    padding: 5px 20px;
+    border-radius: 0.4rem !important;
+    position: relative !important;
+}
+.chatLine:hover {
+    background-color: lightgray;
+}
+.chatLine:hover .reply {
+    visibility: visible;
+}
+
+.userName {
+    /*padding: 0 5px;*/
+    border-radius: .2rem;
+    padding: 2px 0 2px 0;
+}
+.userName:hover {
+    cursor: pointer;
+    background-color: darkgray;
+}
+
 /* edit style semantic ui react  */
 
 /*.ui.menu {*/
@@ -92,21 +118,23 @@
 }
 
 .message-img {
-    min-width: 25px;
-    width: 25px;
-    height: 25px;
-    margin-right: 4px;
+    /*min-width: 25px;*/
+    /*width: 25px;*/
+    /*height: 25px;*/
+    /*margin-right: 4px;*/
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
 
     /*width: 27%; !* Ширина *!*/
-    float: left; /* Выстраиваем элементы по горизонтали */
+    /*float: left; !* Выстраиваем элементы по горизонтали *!*/
     /*margin: 0 0 0 3.5%; !* Отступ слева *!*/
     /*background: #f0f0f0; !* Цвет фона *!*/
     /*border-radius: 5px; !* Радиус скругления *!*/
-    /*padding: 2%; !* Поля *!*/
+    /*padding: 1%; !* Поля *!*/
+    top: -1px;
+
 }
 
 .message-input {

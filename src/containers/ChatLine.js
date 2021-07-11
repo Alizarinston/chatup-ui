@@ -1,6 +1,8 @@
 import React from 'react';
 import {v4 as uuid} from 'uuid';
-import MessageImage from "../components/Image";
+import { ChatImage } from "../components/Image";
+import { Label, Popup } from "semantic-ui-react";
+import UserChatProfile from "../components/UserChatProfile";
 
 
 export class ChatLine extends React.Component {
@@ -23,13 +25,6 @@ export class ChatLine extends React.Component {
   }
 
   render() {
-    const chatLineStyle = {
-      paddingLeft: 20,
-      paddingTop: 5,
-      paddingRight: 20,
-      paddingBottom: 5,
-    }
-
     const textStyle = {
       fontFamily: "Arial",
       fontSize: 12,
@@ -39,22 +34,34 @@ export class ChatLine extends React.Component {
       whiteSpace: "pre-wrap",
     }
 
+    const { messageObject, smiles } = this.props;
+    const icon = smiles[messageObject.author.role_icon - 1]
+
     const message = this.state.splittedMessage.map(x => {
       if (x.match(/{{image\|\d+}}/g)) {
-        x = <MessageImage data={this.props.smiles[parseInt(x.match(/\d+/g)) - 1]['image']}/>
+        x = <ChatImage data={smiles[parseInt(x.match(/\d+/g)) - 1]['image']}/>
       }
       return <span style={textStyle} key={uuid()}>{x} </span>
     });
 
     return (
-      <div style={chatLineStyle}>
-        <span style={textStyle}>
-          <MessageImage data={this.props.smiles[this.props.messageObject.author.role_icon - 1]['image']}/>&nbsp;
-          <b style={{color: `#${this.props.messageObject.author.username_color}`}}>
-            {this.props.messageObject.author.username}:&nbsp;
-          </b>
-        </span>
+      <div className='chatLine'>
+        <span style={textStyle} className={'userName'}>
+          <Popup
+            position={"top center"}
+            content={icon['description']}
+            trigger={<span><ChatImage data={icon['image']}/></span>}
+          />&nbsp;
+
+          <UserChatProfile author={messageObject.author}/>
+        </span>:&nbsp;
+
         {message}
+
+        <Popup
+          content={"Щелкните, чтобы ответить"}
+          trigger={<Label as='a' className='reply' attached={"top right"} icon='reply' floating/>}
+        />
       </div>
     );
 
