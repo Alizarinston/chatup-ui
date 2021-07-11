@@ -1,5 +1,6 @@
 import {ChatLine} from '../containers/ChatLine';
 import React, { useEffect, useRef } from 'react'
+import { SlideInRight } from "./Animations";
 
 export const ChatContent = ({ chatLines, smiles }) => {
   const messagesEndRef = useRef(null)
@@ -23,7 +24,9 @@ export const ChatContent = ({ chatLines, smiles }) => {
   return (
     <div style={chatContentStyle}>
       {chatLines.map(cl =>
-        <ChatLine messageObject={cl} key={cl.id} smiles={smiles} test={scrollToBottom}/>
+        <SlideInRight>
+          <ChatLine messageObject={cl} key={cl.id} smiles={smiles} test={scrollToBottom}/>
+        </SlideInRight>
       )}
       <div ref={messagesEndRef} />
     </div>

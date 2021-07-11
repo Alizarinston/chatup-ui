@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { authLogin } from "../store/actions/auth";
-import {FlipIn} from "../components/AnimationFlipIn";
+import {FlipIn} from "../components/Animations";
 
 class LoginForm extends React.Component {
   state = {

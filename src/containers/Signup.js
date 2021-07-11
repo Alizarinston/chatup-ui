@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { authSignup } from "../store/actions/auth";
-import { FlipIn } from "../components/AnimationFlipIn";
+import { FlipIn } from "../components/Animations";
 
 class RegistrationForm extends React.Component {
   state = {

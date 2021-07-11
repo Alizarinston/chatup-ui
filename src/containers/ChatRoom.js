@@ -6,6 +6,7 @@ import {InputBlock} from '../components/InputBlock';
 import { connect } from "react-redux";
 import WebSocketInstance from "../websocket";
 import { fetchMessages } from "../store/actions/message";
+import { MeteorRainLoading } from 'react-loadingg';
  
 
 class ChatRoom extends React.Component {
@@ -63,15 +64,20 @@ class ChatRoom extends React.Component {
 
     return (
       <div style={chatRoomStyle}>
-        <ChatContent
-          chatLines={this.renderMessages(messages)}
-          smiles={images}
-        />
-        {active ?
-          <InputBlock
-            onChatClick={this.handleSendMessage}
-            smiles={images}
-          /> : 'This stream is offline'
+        {messages.length === 0 ? <MeteorRainLoading/> :  // color={'#6441a5'}
+          <>
+            <ChatContent
+              chatLines={this.renderMessages(messages)}
+              smiles={images}
+            />
+
+            {active ?
+              <InputBlock
+                onChatClick={this.handleSendMessage}
+                smiles={images}
+              /> : 'This stream is offline'
+            }
+          </>
         }
       </div>
     );

@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux";
-import { Icon, Loader} from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 import axios from "axios";
 
 import { HOST_URL } from "../settings";
@@ -16,15 +16,29 @@ class HomepageLayout extends React.Component {
   state = {
     loading: true,
     profile: false,
+    profileDelay: false,
     pip: false
   }
 
   profileTab = () => {
-    this.setState(state => ({
-      profile: !state.profile,
-      pip: !state.pip
-    }))
-  }
+    if (!this.state.profile) {
+      this.setState(state => ({
+        profileDelay: !state.profileDelay,
+        profile: !state.profile,
+        pip: !state.pip
+      }))
+    } else {
+      this.setState(state => ({
+        profileDelay: !state.profileDelay
+      }))
+      setTimeout(() => {
+        this.setState(state => ({
+          profile: !state.profile,
+          pip: !state.pip
+        }))
+      }, 500)
+    }
+    }
 
   componentDidMount() {
     axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
@@ -59,7 +73,7 @@ class HomepageLayout extends React.Component {
   }
 
   render() {
-    const { active, chatID, loading, title, profile, pip } = this.state
+    const { active, chatID, loading, title, profile, profileDelay, pip } = this.state
     return (
       <div>
       
@@ -106,15 +120,13 @@ class HomepageLayout extends React.Component {
           </div>
         </div>
 
-        { (profile) && <Profile profileTab={this.profileTab}/> }
+        { (profile) && <Profile profileTab={this.profileTab} enabled={profileDelay}/> }
 
         {
           (!this.props.isAuthenticated) ? <AuthForm/> :
             (loading) ?
               <React.Fragment>
-                  <div className="messages">
-                    <Loader active size={"big"} style={{height: '200px'}}/>
-                  </div>
+                  <div className="messages"/>
                   <div className="chatHeader" style={{height: '53px'}}/>
               </React.Fragment>
               :
