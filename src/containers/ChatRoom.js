@@ -28,7 +28,11 @@ class ChatRoom extends React.Component {
 
   renderMessages = messages => {
     return messages.map((message) => (
-      { user: message.author.username, text: message.text, id: message.id }
+      {
+        author: message.author,
+        text: message.text,
+        id: message.id,
+      }
     ));
   };
 

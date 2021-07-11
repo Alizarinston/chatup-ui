@@ -37,7 +37,6 @@ export class ChatLine extends React.Component {
       wordBreak: "break-all",
       wordWrap: "break-word",
       whiteSpace: "pre-wrap",
-
     }
 
     const message = this.state.splittedMessage.map(x => {
@@ -49,7 +48,13 @@ export class ChatLine extends React.Component {
 
     return (
       <div style={chatLineStyle}>
-        <span style={textStyle}><b>{this.props.messageObject.user}: </b></span>{message}
+        <span style={textStyle}>
+          <MessageImage data={this.props.smiles[this.props.messageObject.author.role_icon - 1]['image']}/>&nbsp;
+          <b style={{color: `#${this.props.messageObject.author.username_color}`}}>
+            {this.props.messageObject.author.username}:&nbsp;
+          </b>
+        </span>
+        {message}
       </div>
     );
 
