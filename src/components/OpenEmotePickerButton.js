@@ -1,4 +1,5 @@
 import React from 'react';
+import {Icon} from "semantic-ui-react";
 
 export class OpenEmotePickerButton extends React.Component {
   state = {
@@ -66,7 +67,7 @@ export class OpenEmotePickerButton extends React.Component {
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
       >
-        <img alt={'error'} src="data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABgElEQVR4nJXUzUrDQBDA8f/sJvWk/dKrFxEVL3rwicRXEERaD0UQBO/qk+grePFsKYoe/UirFz+6Ox42aaNtbJ0QWMLsLzO7m8hdfLFtMEeKzivKf0LC9ejxe3IbXzzH2Fof9y8kC4ulj0sii/xEFPATKjMCEoYOh0Wqkc+3o+E2C6VB4kgo+KevrDcAPEr0I6fvmN1ZpHK4jJjxknqlu9/m7fweie3g+QDSL8/MVoXq8QqmHI1Fsqger/B5/crHVQ+JTeg2NKqYekz9dH0iAmDKEfWzdUw9BqcppIGrnaxS2pybiGRR2pijdrIWStGsIsA9fEyNDOe8D6sMKy8kjRt6rc7USK/VIWncAOEohIoExAhJsz0V1mt1SJrtsLPp5g5X1ggCJM02AOXG0t+IlXAw+Q1NgRUho9AvTIFKinVbHboFyHgoh3UP0on5ccGJl/v4Un3R7yP/AecWduS9CMapJhY7PkNS4A8kwuLQF+PF7yr6KEWZQiEiCB59Etj9BtckjzQuAeozAAAAAElFTkSuQmCC" />
+        <Icon name={"smile outline"}/>
       </button>
     )
   }

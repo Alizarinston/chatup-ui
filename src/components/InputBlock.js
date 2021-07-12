@@ -82,7 +82,10 @@ export class InputBlock extends React.Component {
           <TextAreaBox
             onChange={this.handleMessageChange}
             value={this.state.message}
-            style={{ paddingRight: 35, height: 50 }}
+            style={{
+              paddingRight: '6.5rem', height: 50, paddingLeft: '3.8rem',
+              paddingTop: '1rem', paddingBottom: '1rem', borderRadius: '0.4rem',
+            }}
             placeholder={"Send a message"}
             onChatClick={this.handleChatClick}
           />
@@ -100,7 +103,6 @@ export class InputBlock extends React.Component {
               onEmoteClick={this.handleEmoteClick}
             />
           }
-
         </div>
       </div>
     );

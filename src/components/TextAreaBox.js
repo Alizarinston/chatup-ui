@@ -32,23 +32,27 @@ export class TextAreaBox extends React.Component {
 
     if (this.state.focus) {
       focusStyle = {
-        boxShadow: "0 0 6px -2px #7d5bbe",
+        boxShadow: "0 0 16px -2px #7d5bbe",
         borderColor: "#7d5bbe",
+        backgroundColor: 'white'
       }
     }
 
     const textAreaBoxStyle = {
       position: "absolute",
-      width: "100%",
-      boxSizing: "border-box",
+      overflowX: 'hidden',
+      fontSize: '1.1rem',
+      boxSizing: 'border-box',
+      display: 'flex',
+      width: '100%',
+      borderWidth: '2px',
+      lineHeight: 1.4,
+      fontFamily: 'inherit',
+      backgroundClip: 'padding-box',
       outline: "none",
-      paddingLeft: 10,
-      paddingRight: 10,
-      paddingTop: 5,
-      paddingBottom: 5,
       resize: "none",
-      borderRadius: 2,
-      // borderColor: "rgb(218,216,222)",
+      backgroundColor: 'lightgray',
+      borderColor: "rgb(218,216,222)",
     };
 
     return (
