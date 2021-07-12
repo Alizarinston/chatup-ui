@@ -89,10 +89,20 @@ export const authLogin = (username, password) => {
         localStorage.setItem('token', token);
 
         dispatch(authSuccess(token));
+        dispatch(fetchImages());
         dispatch(fetchUserData());
       })
       .catch(err => {
-        dispatch(authFail(err))
+        if (err.response.data['detail'] === 'You are already logged in.') {
+          const token = "true";
+          localStorage.setItem('token', token);
+
+          dispatch(authSuccess(token));
+          dispatch(fetchImages());
+          dispatch(fetchUserData());
+        } else {
+          dispatch(authFail(err))
+        }
       })
   }
 };
@@ -111,6 +121,7 @@ export const authSignup = (username, email, password1, password2) => {
         localStorage.setItem('token', token);
 
         dispatch(authSuccess(token));
+        dispatch(fetchImages());
         dispatch(fetchUserData());
       })
       .catch(err => {

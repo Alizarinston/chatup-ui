@@ -5,6 +5,7 @@ import {Button, Segment, Menu, Grid, Image} from "semantic-ui-react";
 import UserImage from "../components/Image";
 import { UploadImage } from "../components/UploadImage";
 import { Slide } from "../components/Animations";
+import { LoopCircleLoading } from "react-loadingg";
 
 const roles = {
   3: "Администратор",
@@ -72,7 +73,9 @@ class Profile extends React.Component {
                   </p>
                   <p>Статус: {roles[roleID]}</p>
                   <p>Время просмотра: {watchTime} минут</p>
-                  <p> <UserImage data={images[0]['image']}/> </p>
+                  {images.length === 0 ? <LoopCircleLoading color={'#6441a5'}/> :
+                    <p><UserImage data={images[0]['image']}/></p>
+                  }
                   <UploadImage/>
                 </Grid.Column>
               </Grid>

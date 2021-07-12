@@ -68,7 +68,7 @@ class ChatRoom extends React.Component {
 
     return (
       <div style={chatRoomStyle}>
-        {messages.length === 0 ? <MeteorRainLoading/> :  // color={'#6441a5'}
+        {(messages.length === 0 || images.length === 0) ? <MeteorRainLoading/> :  // color={'#6441a5'}
           <>
             <ChatContent
               chatLines={this.renderMessages(messages)}
