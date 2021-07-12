@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { authSignup } from "../store/actions/auth";
-import { FlipIn } from "../components/Animations";
+import { Zoom } from "../components/Animations";
 
 class RegistrationForm extends React.Component {
   state = {
@@ -32,12 +32,12 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { username, email, password1, password2 } = this.state;
-    const { error, loading, token } = this.props;
+    const { error, loading, token, delay, changeAuth } = this.props;
     if (token) {
       return <Redirect to="/" />;
     }
     return (
-      <FlipIn>
+      <Zoom out={delay}>
         <Grid
           textAlign="center"
           style={{ height: "100px" }}
@@ -122,13 +122,13 @@ class RegistrationForm extends React.Component {
                   icon
                   color={"google plus"}
                   content={'Login'}
-                  onClick={this.props.changeAuth}
+                  onClick={changeAuth}
                 />
               </Message>
             </React.Fragment>
           </Grid.Column>
         </Grid>
-      </FlipIn>
+      </Zoom>
     );
   }
 }

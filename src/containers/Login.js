@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { authLogin } from "../store/actions/auth";
-import {FlipIn} from "../components/Animations";
+import { Zoom } from "../components/Animations";
 
 class LoginForm extends React.Component {
   state = {
@@ -29,13 +29,13 @@ class LoginForm extends React.Component {
   };
 
   render() {
-    const { error, loading, token } = this.props;
+    const { error, loading, token, delay, changeAuth } = this.props;
     const { username, password } = this.state;
     if (token) {
       return <Redirect to="/" />;
     }
     return (
-      <FlipIn>
+      <Zoom out={delay}>
         <Grid
           textAlign="center"
           style={{ height: "100px" }}
@@ -99,13 +99,13 @@ class LoginForm extends React.Component {
                   icon
                   color={"google plus"}
                   content={'Sign Up'}
-                  onClick={this.props.changeAuth}
+                  onClick={changeAuth}
                 />
               </Message>
             </React.Fragment>
           </Grid.Column>
         </Grid>
-      </FlipIn>
+      </Zoom>
     );
   }
 }
