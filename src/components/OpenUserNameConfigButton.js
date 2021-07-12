@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon} from "semantic-ui-react";
 
-export class OpenEmotePickerButton extends React.Component {
+export class OpenUserNameConfigButton extends React.Component {
   state = {
     hover: false,
     active: false,
@@ -21,7 +21,7 @@ export class OpenEmotePickerButton extends React.Component {
   }
 
   handleButtonClick = () => {
-    this.props.onOpenEmotePickerButtonClick();
+    this.props.onOpenUserNameConfigButtonClick();
   }
 
   render() {
@@ -47,15 +47,15 @@ export class OpenEmotePickerButton extends React.Component {
       background: "transparent",
       border: "1px solid",
       borderRadius: 2,
-      borderColor: "transparent",
+      borderColor: "grey",
       color: "#6e6779",
       cursor: "pointer",
-      height: 35,
+      height: 30,
       outline: "none",
-      position: "absolute",
-      right: 10,
-      top: 8,
-      width: 35,
+      position: "relative",
+      right: -10,
+      top: 10,
+      width: 30,
     }
 
     return (
@@ -67,7 +67,7 @@ export class OpenEmotePickerButton extends React.Component {
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
       >
-        <Icon name={"smile outline"} size={"large"} fitted/>
+        <Icon name={"star outline"} fitted/>
       </button>
     )
   }

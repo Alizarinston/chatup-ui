@@ -51,7 +51,7 @@ class Profile extends React.Component {
 
               <Menu.Menu position='right'>
                 <Menu.Item>
-                  <Button basic active icon={'angle right'} onClick={() => {this.props.profileTab()}}/>
+                  <Button basic active icon={'close'} onClick={() => {this.props.profileTab()}}/>
                 </Menu.Item>
               </Menu.Menu>
             </Menu>

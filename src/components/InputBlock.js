@@ -4,6 +4,7 @@ import {ChatButton} from './ChatButton';
 import {OpenEmotePickerButton} from './OpenEmotePickerButton';
 import {EmotePickerBox} from '../containers/EmotePickerBox';
 import {TextAreaBox} from './TextAreaBox';
+import UserNameConfig from "./UserNameConfig";
 
 export class InputBlock extends React.Component {
   state = {
@@ -86,9 +87,12 @@ export class InputBlock extends React.Component {
               paddingRight: '6.5rem', height: 50, paddingLeft: '3.8rem',
               paddingTop: '1rem', paddingBottom: '1rem', borderRadius: '0.4rem',
             }}
-            placeholder={"Send a message"}
+            placeholder={"Отправить сообщение"}
             onChatClick={this.handleChatClick}
           />
+
+          <UserNameConfig/>
+
           <OpenEmotePickerButton
             onOpenEmotePickerButtonClick={this.handleOpenEmotePickerButtonClick}
           />

@@ -47,13 +47,7 @@ export class ChatLine extends React.Component {
     return (
       <div className='chatLine'>
         <span style={textStyle} className={'userName'}>
-          <Popup
-            position={"top center"}
-            content={icon['description']}
-            trigger={<span><ChatImage data={icon['image']}/></span>}
-          />&nbsp;
-
-          <UserChatProfile author={messageObject.author}/>
+          <UserChatProfile author={messageObject.author} icon={icon}/>
         </span>:&nbsp;
 
         {message}
